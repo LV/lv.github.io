@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 	<html>
-		<head>
-			<title>{{ page.title }} | LV</title>
-			<link rel="stylesheet" type="text/css" href="/css/main.css">
-		</head>
+
+		{% include head.html %}
+
 		<body>
 			<nav>
 				<ul>
@@ -11,9 +10,9 @@
 				</ul>
 			</nav>
 			<div class="container">
-			
+
 			{{ content }}
-			
+
 			</div>
 			<footer>
 				<ul>
