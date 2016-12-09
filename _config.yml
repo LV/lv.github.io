@@ -1,3 +1,22 @@
-name: Hank Quinlan, Horrible Cop
-markdown: kramdown
-permalink: /blog/:year/:month/:day/:title
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:				pretty
+relative_permalinks:	true
+
+# Setup
+title:					LV
+tagline:				"Luis Victoria"
+description:			"My personal GitHub "
+url:					http://lv.github.io
+baseurl:				""
+paginate:				5
+
+# About/contact
+author:
+name:					Luis Victoria
+url:					https://twitter.com/mdo
+email:					luisvictoriaperez@gmail.com
+
+# Custom vars
+version:				1.0.0
