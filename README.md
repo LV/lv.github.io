@@ -14,6 +14,7 @@ Despite the site running on GitHub Pages and the name of the repository being lv
 ### My Profiles
 
 On that note, I might as well just promote some of my online web presence because why not?
+
 | Website | Username |
 | ------- | -------- |
 | GitHub | [LV](https://github.com/lv) |
