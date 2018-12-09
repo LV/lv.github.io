@@ -1,5 +1,7 @@
 # lv.github.io
 
+[![Build Status](https://travis-ci.com/LV/lv.github.io.svg?branch=master)](https://travis-ci.com/LV/lv.github.io)
+
 lv.github.io is my personal web portfolio, where I will showcase:
 
 - My Online Profiles from sites such as StackOverflow or my progress in programs such as FreeCodeCamp

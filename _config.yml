@@ -1,21 +1,22 @@
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:				pretty
+permalink:    pretty
 
 # Setup
-title:					LV
-tagline:				"Luis Victoria"
-description:			"My personal GitHub "
+title:        LV
+tagline:      "Luis Victoria"
+description:  "My web portfolio"
 url:					http://lv.github.io
-baseurl:				""
-paginate:				5
+baseurl:      ""
+paginate:     5
 
 # About/contact
 author:
-name:					Luis Victoria
-url:					https://twitter.com/mdo
-email:					luisvictoriaperez@gmail.com
+name:         Luis Victoria
+email:        luisvictoriaperez@gmail.com
 
 # Custom vars
-version:				1.0.0
+version:      1.1.0
+
+exclude: [vendor]
