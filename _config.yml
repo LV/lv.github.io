@@ -2,14 +2,14 @@
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
 permalink:    pretty
-permalink:    luisvictoria.me/blog/:year/:month/:day/:title
+permalink:    /blog/:year/:month/:day/:title
 
 # Setup
 title:        LV
 tagline:      "Luis Victoria"
 description:  "My web portfolio"
 url:					http://luisvictoria.me
-baseurl:      ""
+baseurl:      "http://luisvictoria.me"
 paginate:     5
 
 # About/contact
