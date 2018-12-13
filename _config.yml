@@ -9,7 +9,7 @@ title:        LV
 tagline:      "Luis Victoria"
 description:  "My web portfolio"
 url:					http://luisvictoria.me
-baseurl:      "http://luisvictoria.me"
+baseurl:      http://luisvictoria.me
 paginate:     5
 
 # About/contact
@@ -18,6 +18,6 @@ name:         Luis Victoria
 email:        luisvictoriaperez@gmail.com
 
 # Custom vars
-version:      1.3.0
+version:      1.3.1
 
 exclude: [vendor]
