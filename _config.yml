@@ -2,6 +2,7 @@
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
 permalink:    pretty
+permalink:    /blog/:year/:month/:day/:title
 
 # Setup
 title:        LV
@@ -17,6 +18,6 @@ name:         Luis Victoria
 email:        luisvictoriaperez@gmail.com
 
 # Custom vars
-version:      1.1.0
+version:      1.2.0
 
 exclude: [vendor]
