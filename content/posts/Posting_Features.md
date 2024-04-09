@@ -1,8 +1,8 @@
-+++
+---
 author: "Luis Victoria"
-title = 'Posting Features'
+title: "Posting Features"
 description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
-date = 2024-04-09T10:23:38Z
+date: 2024-04-09
 tags: [
     "markdown",
     "css",
@@ -14,8 +14,8 @@ categories: [
 ]
 series: ["Themes Guide"]
 aliases: ["migrate-from-jekyl"]
-draft = false
-+++
+draft: false
+---
 
 # Markdown
 
@@ -244,15 +244,6 @@ $$
 
 
 # Mermaid
-
----
-author: Michael Neuper
-title: Mermaid Diagrams
-date: 2023-11-10
-description: A brief guide to mermaid diagrams
-categories: ["syntax"]
-tags: ["mermaid"]
----
 
 ## Flowchart
 

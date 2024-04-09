@@ -40,7 +40,7 @@ Theme <a class=link href=https://github.com/michaelneuper/hugo-texify3 target=_b
 """
 customCSS = []
 customJS = []
-dateFormat = "4 December 1998"
+dateFormat = "2 January 2006"
 emphasisWithDots = true
 toc = true
 rootFontSize = "105%"
