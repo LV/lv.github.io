@@ -1,10 +1,10 @@
-baseURL = "https://lambda.lv"
+baseURL = "https://luis.vi/"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
 
 # website title
-title = "Lambda.LV"
+title = "Luis Victoria"
 
 # language code ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "en"
@@ -94,7 +94,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Lambda"
+      name = "Luis Victoria"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -108,7 +108,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     #  Custom content (HTML format is supported)
     custom = ''
     #  whether to show Hugo and theme info
-    hugo = true
+    hugo = false
     #  whether to show copyright info
     copyright = true
     #  whether to show the author
@@ -118,7 +118,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # ICP info only in China (HTML format is supported)
     icp = ""
     # license info (HTML format is supported)
-    license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+    # license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
   #  Section (all posts) page config
   [params.section]
@@ -294,13 +294,13 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # whether to enable lightgallery
     lightgallery = false
     #  whether to enable the ruby extended syntax
-    ruby = true
+    ruby = false
     #  whether to enable the fraction extended syntax
     fraction = true
     #  whether to enable the fontawesome extended syntax
     fontawesome = true
     # whether to show link to Raw Markdown content of the content
-    linkToMarkdown = true
+    linkToMarkdown = false
     #  whether to show the full text content in RSS
     rssFullText = false
     #  Table of the contents config
@@ -341,16 +341,16 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # whether to add NavigationControl
       navigation = true
       # whether to add GeolocateControl
-      geolocate = true
+      geolocate = false
       # whether to add ScaleControl
       scale = true
       # whether to add FullscreenControl
       fullscreen = true
     #  social share links in post page
     [params.page.share]
-      enable = true
-      Twitter = true
-      Facebook = true
+      enable = false
+      Twitter = false
+      Facebook = false
       Linkedin = false
       Whatsapp = false
       Pinterest = false
@@ -364,7 +364,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       Instapaper = false
       Pocket = false
       Flipboard = false
-      Weibo = true
+      Weibo = false
       Blogger = false
       Baidu = false
       Odnoklassniki = false
@@ -527,7 +527,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   #  Cookie consent config
   [params.cookieconsent]
-    enable = true
+    enable = false
     # text strings used for Cookie consent banner
     [params.cookieconsent.content]
       message = ""
