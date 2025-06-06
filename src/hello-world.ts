@@ -4,4 +4,4 @@ class HelloWorldComponent extends HTMLElement {
     }
 }
 
-customElements.define('x-hello-world', HelloWorldComponent);
+customElements.define('lv-hello-world', HelloWorldComponent);
