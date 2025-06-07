@@ -1,10 +1,14 @@
 .PHONY: all
-all: compile server
+all: clean compile run
+
+.PHONY: clean
+clean:
+	rm -rf dist
 
 .PHONY: compile
 compile:
 	tsc
 
-.PHONY: server
-server:
+.PHONY: run
+run:
 	python3 -m http.server
