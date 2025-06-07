@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es6",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true
-  }
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+  },
+  "include": ["./src/**/*"],
 }
