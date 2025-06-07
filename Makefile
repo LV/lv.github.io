@@ -1,13 +1,5 @@
 .PHONY: all
-all: clean compile run
-
-.PHONY: clean
-clean:
-	rm -rf dist
-
-.PHONY: compile
-compile:
-	tsc
+all: run
 
 .PHONY: run
 run:
