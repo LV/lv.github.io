@@ -1,8 +1,9 @@
 /**
  * Defines and registers a custom HTML element `<lv-hello-world>`.
- * @returns {void}
+ * @extends {HTMLElement}
  */
 class HelloWorldComponent extends HTMLElement {
+    /** @returns {void} */
     connectedCallback() {
         this.textContent = 'hello world!';
     }
