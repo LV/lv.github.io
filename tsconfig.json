@@ -2,7 +2,7 @@
   "compilerOptions": {
     "checkJs": true,
     "noEmit": true,
-    "strict": true,
+    "strict": true
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*"]
 }
