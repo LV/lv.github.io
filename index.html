@@ -12,7 +12,21 @@
     <!-- Still show the contents if the user doesn't want to load JavaScript; can't fault them -->
     <noscript><strong>This page will not render correctly without JavaScript</strong></noscript>
     <header>
-      HEADER
+      <h1>LV</h1>
+      <p>Thots and prayers</p>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <form name="site-search" action="/search" method="get" role="search">
+        <label for="query">Search this page</label>
+        <input type="search" id="query" name="query" />
+      </form>
     </header>
     <main>
       <p>I just want to say...</p>
