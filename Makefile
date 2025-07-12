@@ -4,7 +4,7 @@ all: check run
 .PHONY: run
 run:
 	@echo "Running HTTP Server via python3..."
-	@python3 -m http.server
+	@python3 -m http.server -d public
 
 .PHONY: check
 check:
