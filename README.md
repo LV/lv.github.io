@@ -1,12 +1,7 @@
 # lv.github.io
 
-This is the repository for my personal webpage
+This is the repository for my personal webpage. It follows the [Plain Vanilla Web guildelines](https://plainvanillaweb.com/pages/sites.html).
 
-## Getting started
-
-1. Make sure you have Hugo Extended installed
-2. Clone this repo
-3. Initialize submodules
-```sh
-git submodule update --init
-```
+## Prerequisites
+- `typescript`
+- `python3` (or any HTTP Server)

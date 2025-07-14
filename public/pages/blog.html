@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>LV - Blog</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Thoughts and Experiments">
+    <meta name="author" content="Luis Victoria">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../index.css">
+    <script type="module" src="../index.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Still show the contents if the user doesn't want to load JavaScript; can't fault them -->
+    <noscript><strong>This page will not render correctly without JavaScript</strong></noscript>
+    <header>
+      <h1>Luis Victoria</h1>
+      <p>Creating to Understand</p>
+
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./pages/blog.html" aria-current="page">Blog</a></li>
+        </ul>
+      </nav>
+
+      <form name="site-search" action="/search" method="get" role="search">
+        <label for="query">Search this page</label>
+        <input type="search" id="query" name="query" />
+      </form>
+    </header>
+
+    <main>
+      <p>I just want to say...</p>
+      <lv-hello-world></lv-hello-world>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Luis Victoria</p>
+    </footer>
+  </body>
+</html>
