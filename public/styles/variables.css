@@ -1,7 +1,7 @@
 :root {
-    /* https://modernfontstacks.com/
-       geometric humanist font */
-    --font-system: Avenir, Montserrat, Corbel, source-sans-pro, sans-serif;
+    /* https://modernfontstacks.com/ */
+    /* Antique font */
+    --font-system: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
     /* monospace code font */
     --font-system-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
     --font-system-code-size: 0.8rem;
