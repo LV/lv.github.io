@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <title>Luis Victoria's Webpage</title>
+    <meta charset="utf-8">
     <meta name="description" content="Thoughts and Experiments">
     <meta name="author" content="Luis Victoria">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luis Victoria's Webpage</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./index.css">
     <script type="module" src="./index.js" defer></script>
   </head>
+
   <body>
     <!-- Still show the contents if the user doesn't want to load JavaScript; can't fault them -->
     <noscript><strong>This page will not render correctly without JavaScript</strong></noscript>
@@ -16,8 +18,9 @@
       <h1>LV</h1>
       <p>Thots and prayers</p>
 
-      <nav aria-label="Main navigation">
+      <nav>
         <ul>
+          <li><a href="#" aria-current="page">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#blog">Blog</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -29,10 +32,12 @@
         <input type="search" id="query" name="query" />
       </form>
     </header>
+
     <main>
       <p>I just want to say...</p>
       <lv-hello-world></lv-hello-world>
     </main>
+
     <footer>
       <p>&copy; 2025 Luis Victoria</p>
     </footer>
