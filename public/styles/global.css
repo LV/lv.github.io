@@ -161,12 +161,17 @@ footer .contact a:hover {
 }
 
 footer .contact a[href*="github.com"] {
-    background-image: url("../lib/akar-icons/github-fill.svg");
+    background-image: url("../images/icons/github.svg");
     padding-left: 2em;
 }
 
-footer .contact a[href*="sebrechts.net"] {
-    background-image: url("../lib/akar-icons/envelope.svg");
+footer .contact a[href*="linkedin.com"] {
+    background-image: url("../images/icons/linkedin.svg");
+    padding-left: 2em;
+}
+
+footer .contact a[href*="lichess.org"] {
+    background-image: url("../images/icons/lichess.svg");
     padding-left: 2em;
 }
 
