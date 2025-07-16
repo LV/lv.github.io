@@ -1,6 +1,8 @@
 """feed.atom generator"""
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
+import argparse
+
 # CONSTANTS
 FEED_NAME: str = "LV"
 HOMEPAGE_URL: str = "https://luis.vi"
@@ -27,8 +29,18 @@ TEMPLATE: str = f"""<?xml version="1.0" encoding="UTF-8"?>
 </feed>
 """
 
+def parse_args() -> argparse.Namespace:
+    prarser = argparse.ArgumentParser(
+        description="`feed.atom` generator."
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
     print("Hello world")
+
 
 if __name__ == "__main__":
     main()
