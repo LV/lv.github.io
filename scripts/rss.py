@@ -71,10 +71,7 @@ def generate_file_contents(feed: FeedContent) -> str:
 
 def write_file(content: str) -> None:
     """Writes the `feed.atom` file."""
-    if FEED_FILE.is_file():
-        FEED_FILE.unlink()
-
-    FEED_FILE.write_text(content)
+    FEED_FILE.write_text(content) # overwrites contents if it exists
 
 
 def main() -> None:
