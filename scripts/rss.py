@@ -25,9 +25,8 @@ class Entry:
     html_content: str
 
 
-def generate_file(feed_timestamp: datetime) -> str:
+def generate_file_contents(feed_timestamp: datetime) -> str:
     """Generates the entire `feed.atom` file as a string."""
-    # TODO: Generate entries
     header: str = f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{FEED_NAME}</title>
@@ -40,6 +39,7 @@ def generate_file(feed_timestamp: datetime) -> str:
   </author>
 """
 
+    # TODO: Generate entries
     # Check for entries in `SITE_DIR`, and generate them accordingly
 
     footer: str = "</feed>"
@@ -47,8 +47,13 @@ def generate_file(feed_timestamp: datetime) -> str:
 
 def main() -> None:
     """Script entrypoint."""
-    # Check if `feed.atom` exists
-    # Check against current `feed.atom` and site-tree cache
+    should_write_file: bool = False
+
+    FEED_FILE: Path = SITE_DIR / "feed.atom"
+    if not FEED_FILE.is_file():
+        should_write_file = True
+
+    # Check against current `feed.atom` and site-tree cache (aka check if the file needs updating)
     # Update `feed.atom` file accordingly
 
 
