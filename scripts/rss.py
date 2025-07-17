@@ -45,7 +45,7 @@ def generate_file_contents(feed_timestamp: datetime) -> str:
     # TODO: Generate entries
     # Check for entries in `SITE_DIR`, and generate them accordingly
 
-    final_str += "</feed>"
+    final_str += "</feed>\n"
     return final_str
 
 
