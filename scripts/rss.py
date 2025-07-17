@@ -1,4 +1,5 @@
 """`feed.atom` Generator"""
+# IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
 import argparse
@@ -67,9 +68,11 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    # If we parse Git metadata, we won't have a need for parsing arguments
     args = parse_args()
     # Check if `feed.atom` file exists
     # If it does, parse the file
+    # Parse the blog too to generate these entries
     print("Hello world")
 
 
