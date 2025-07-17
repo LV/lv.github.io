@@ -13,6 +13,6 @@ check:
 		echo "✅ Type check passed! All is good." || \
 		(echo "❌ Type check failed! See errors below:" && tsc)
 
-.PHONY: rss
-rss:
-	@python3 scripts/rss.py
+.PHONY: feedgen
+feedgen:
+	@python3 scripts/feedgen.py
