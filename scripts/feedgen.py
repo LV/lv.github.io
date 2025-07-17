@@ -2,8 +2,10 @@
 FEED_GENERATOR_VERSION: str = "0.1.0"
 
 # IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
-# Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
-# Spec: https://validator.w3.org/feed/docs/atom.html
+# HELPFUL LINKS:
+# Guide and Tips: https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
+# W3 Concise Guide: https://validator.w3.org/feed/docs/atom.html
+# Official Spec: https://datatracker.ietf.org/doc/html/rfc4287
 
 from dataclasses import dataclass
 from datetime import datetime
@@ -13,7 +15,7 @@ from pathlib import Path
 AUTHOR_NAME: str = "Luis Victoria"
 AUTHOR_EMAIL: str = "v@luis.vi"
 BASE_URL: str = "https://luis.vi"
-FEED_NAME: str = "Luis Victoria's Blog"
+FEED_NAME: str = AUTHOR_NAME
 SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
 FEED_FILE: Path = SITE_DIR / "feed.atom"
 
