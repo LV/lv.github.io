@@ -4,11 +4,11 @@
   <id>https://luis.vi</id>
   <link rel="alternate" href="https://luis.vi"/>
   <link rel="self" href="https://luis.vi/feed.atom"/>
-  <updated>2025-07-17T14:49:28.117268</updated>
+  <updated>2025-07-17T15:02:43.111279</updated>
   <author>
     <name>Luis Victoria</name>
   </author>
-  <generator version="0.1.0">
+  <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="0.1.0">
     Luis Victoria's Atom Feed Generator
   </generator>
 </feed>

@@ -61,7 +61,7 @@ def generate_file_contents(feed: FeedContent) -> str:
   <author>
     <name>{AUTHOR_NAME}</name>
   </author>
-  <generator version="{FEED_GENERATOR_VERSION}">
+  <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="{FEED_GENERATOR_VERSION}">
     Luis Victoria's Atom Feed Generator
   </generator>
 """
