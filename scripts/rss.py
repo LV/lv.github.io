@@ -2,7 +2,6 @@
 # IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
-import argparse
 from dataclasses import dataclass
 from datetime import datetime
 import sys
@@ -47,33 +46,10 @@ def generate_file(base_url: str, feed_timestamp: datetime, entries: list[Entry])
 """
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        prog="RSS Generator",
-        description="Generate, edit, and modify the `feed.atom` for RSS support",
-    )
-    parser.add_argument(
-        "-u",
-        "--update-feed-timestamp",
-        help="Update the feed's last modified timestamp to now",
-    )
-    # Feature request: Add blog post; should create a new entry in the RSS
-
-    # Print help and exit if no arguments were passed
-    if len(sys.argv) == 1:
-        parser.print_help(sys.stderr)
-        sys.exit(1)
-
-    return parser.parse_args()
-
-
 def main() -> None:
-    # If we parse Git metadata, we won't have a need for parsing arguments
-    args = parse_args()
-    # Check if `feed.atom` file exists
-    # If it does, parse the file
-    # Parse the blog too to generate these entries
-    print("Hello world")
+    # Parse site tree (`public`)
+    # Check against current `feed.atom` and site-tree cache
+    # Update `feed.atom` file accordingly
 
 
 if __name__ == "__main__":
