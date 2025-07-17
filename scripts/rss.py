@@ -1,4 +1,4 @@
-"""feed.atom generator"""
+"""`feed.atom` Generator"""
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
 import argparse
