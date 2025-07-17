@@ -15,7 +15,8 @@ from pathlib import Path
 AUTHOR_NAME: str = "Luis Victoria"
 AUTHOR_EMAIL: str = "v@luis.vi"
 BASE_URL: str = "https://luis.vi"
-FEED_NAME: str = AUTHOR_NAME
+FEED_TITLE: str = AUTHOR_NAME
+FEED_SUBTITLE: str = "Creating to Understand"
 SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
 FEED_FILE: Path = SITE_DIR / "feed.atom"
 
@@ -51,7 +52,8 @@ def generate_file_contents(feed: FeedContent) -> str:
     final_str = ""
     final_str += f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>{FEED_NAME}</title>
+  <title type="text">{FEED_TITLE}</title>
+  <subtitle type="text">{FEED_SUBTITLE}</subtitle>
   <id>{BASE_URL}</id>
   <link rel="alternate" href="{BASE_URL}"/>
   <link rel="self" href="{BASE_URL+"/feed.atom"}"/>
