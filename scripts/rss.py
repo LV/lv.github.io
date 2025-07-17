@@ -4,12 +4,14 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
 import sys
 
 # CONSTANTS
 AUTHOR_NAME: str = "Luis Victoria"
 BASE_URL: str = "https://luis.vi"
 FEED_NAME: str = "Luis Victoria's Blog"
+SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
 
 
 @dataclass
@@ -36,7 +38,7 @@ def generate_file(feed_timestamp: datetime, entries: list[Entry]) -> str:
   </author>
 """
 
-    if entries:
+    # if entries:
 
     footer: str = "</feed>"
 
@@ -46,6 +48,7 @@ def main() -> None:
         # Check if `feed.atom` exists
     # Check against current `feed.atom` and site-tree cache
     # Update `feed.atom` file accordingly
+    print(SITE_DIR)
 
 
 if __name__ == "__main__":
