@@ -4,6 +4,7 @@
 import argparse
 from dataclasses import dataclass
 from datetime import datetime
+import sys
 
 # CONSTANTS
 FEED_NAME: str = "Luis Victoria's Blog"
@@ -56,6 +57,11 @@ def parse_args() -> argparse.Namespace:
         help="Update the feed's last modified timestamp to now",
     )
     # Feature request: Add blog post; should create a new entry in the RSS
+
+    # Print help and exit if no arguments were passed
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
 
     return parser.parse_args()
 
