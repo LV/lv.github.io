@@ -40,7 +40,7 @@ def generate_file(feed_timestamp: datetime) -> str:
   </author>
 """
 
-    # Check for entries in `SITE_DIR`
+    # Check for entries in `SITE_DIR`, and generate them accordingly
 
     footer: str = "</feed>"
 
