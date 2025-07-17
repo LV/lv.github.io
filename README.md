@@ -4,4 +4,4 @@ This is the repository for my personal webpage. It follows the [Plain Vanilla We
 
 ## Prerequisites
 - `typescript`
-- `python3` (or any HTTP Server)
+- `python3` for HTTP server and for running scripts
