@@ -1,4 +1,6 @@
 """Luis Victoria's Atom Feed Generator"""
+FEED_GENERATOR_VERSION: str = "0.1.0"
+
 # IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
@@ -59,7 +61,7 @@ def generate_file_contents(feed: FeedContent) -> str:
   <author>
     <name>{AUTHOR_NAME}</name>
   </author>
-  <generator>
+  <generator version="f{FEED_GENERATOR_VERSION}">
     Luis Victoria's Atom Feed Generator
   </generator>
 """
