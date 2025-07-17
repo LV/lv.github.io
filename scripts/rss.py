@@ -1,11 +1,10 @@
-"""`feed.atom` Generator"""
+"""Luis Victoria's Atom Feed Generator"""
 # IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
 
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-import sys
 
 # CONSTANTS
 AUTHOR_NAME: str = "Luis Victoria"
@@ -60,6 +59,9 @@ def generate_file_contents(feed: FeedContent) -> str:
   <author>
     <name>{AUTHOR_NAME}</name>
   </author>
+  <generator>
+    Luis Victoria's Atom Feed Generator
+  </generator>
 """
 
     # TODO: Generate entries
