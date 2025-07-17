@@ -7,9 +7,9 @@ from datetime import datetime
 import sys
 
 # CONSTANTS
-FEED_NAME: str = "Luis Victoria's Blog"
-HOMEPAGE_URL: str = "https://luis.vi"
 AUTHOR_NAME: str = "Luis Victoria"
+BASE_URL: str = "https://luis.vi"
+FEED_NAME: str = "Luis Victoria's Blog"
 
 
 @dataclass
@@ -22,32 +22,28 @@ class Entry:
     html_content: str
 
 
-def generate_file(base_url: str, feed_timestamp: datetime, entries: list[Entry]) -> str:
+def generate_file(feed_timestamp: datetime, entries: list[Entry]) -> str:
     # TODO: Generate entries
-    return f"""<?xml version="1.0" encoding="UTF-8"?>
+    header: str = f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{FEED_NAME}</title>
-  <id>{base_url}</id>
-  <link rel="alternate" href="{base_url}"/>
-  <link rel="self" href="{base_url+"/feed.atom"}"/>
+  <id>{BASE_URL}</id>
+  <link rel="alternate" href="{BASE_URL}"/>
+  <link rel="self" href="{BASE_URL+"/feed.atom"}"/>
   <updated>{feed_timestamp.isoformat()}</updated>
   <author>
     <name>{AUTHOR_NAME}</name>
   </author>
-  <entry>
-    <title>{{ENTRY.TITLE}}</title>
-    <link rel="alternate" type="text/html" href="{{ENTRY.HTML_URL}}"/>
-    <id>{{ENTRY.PERMALINK}}</id>
-    <published>{{ENTRY.FIRST_POST_TIME in RFC3339 format}}</published>
-    <updated>{{ENTRY.LAST_UPDATE_TIME in RFC3339 format}}</updated>
-    <content type="html">{{ENTRY.HTML}}</content>
-  </entry>
-</feed>
 """
+
+    if entries:
+
+    footer: str = "</feed>"
 
 
 def main() -> None:
     # Parse site tree (`public`)
+        # Check if `feed.atom` exists
     # Check against current `feed.atom` and site-tree cache
     # Update `feed.atom` file accordingly
 
