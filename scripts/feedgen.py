@@ -60,16 +60,16 @@ def generate_file_contents(feed: FeedContent) -> str:
   <id>tag:{DOMAIN_NAME},2024</id>
   <link rel="alternate" type="text/html" href="{BASE_URL}"/>
   <link rel="self" type="application/atom+xml" href="{BASE_URL+"/feed.atom"}"/>
+  <rights>© {str(datetime.now().year)} {AUTHOR_NAME}. All rights reserved.</rights>
+  <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="{FEED_GENERATOR_VERSION}">
+    Luis Victoria's Atom Feed Generator
+  </generator>
   <author>
     <name>{AUTHOR_NAME}</name>
     <email>{AUTHOR_EMAIL}</email>
     <uri>{BASE_URL}</uri>
   </author>
-  <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="{FEED_GENERATOR_VERSION}">
-    Luis Victoria's Atom Feed Generator
-  </generator>
   <logo>/favicon.ico</logo>
-  <rights>© {str(datetime.now().year)} Luis Victoria. All rights reserved.</rights>
 """
 
     # TODO: Generate entries
