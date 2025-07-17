@@ -3,6 +3,7 @@ FEED_GENERATOR_VERSION: str = "0.1.0"
 
 # IDEA: Use Git `master` metadata to add timestamps and stuff to blogs and entries
 # Using https://kevincox.ca/2022/05/06/rss-feed-best-practices/ as a guide
+# Spec: https://validator.w3.org/feed/docs/atom.html
 
 from dataclasses import dataclass
 from datetime import datetime
@@ -10,6 +11,7 @@ from pathlib import Path
 
 # CONSTANTS
 AUTHOR_NAME: str = "Luis Victoria"
+AUTHOR_EMAIL: str = "v@luis.vi"
 BASE_URL: str = "https://luis.vi"
 FEED_NAME: str = "Luis Victoria's Blog"
 SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
@@ -28,9 +30,6 @@ class Entry:
 
 @dataclass
 class FeedContent:
-    base_url: str
-    feed_name: str
-    author_name: str
     feed_last_updated: datetime
     entries: list[Entry]
 
@@ -39,9 +38,6 @@ def get_feed_content() -> FeedContent:
     """Parse `feed.atom`, `public/`, and Git metadata to generate `FeedContent`."""
     # STUB: Parse content
     return FeedContent(
-        base_url=BASE_URL,
-        feed_name=FEED_NAME,
-        author_name=AUTHOR_NAME,
         feed_last_updated=datetime.now(),
         entries=[],
     )
@@ -53,17 +49,21 @@ def generate_file_contents(feed: FeedContent) -> str:
     final_str = ""
     final_str += f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>{feed.feed_name}</title>
-  <id>{feed.base_url}</id>
-  <link rel="alternate" href="{feed.base_url}"/>
-  <link rel="self" href="{feed.base_url+"/feed.atom"}"/>
+  <title>{FEED_NAME}</title>
+  <id>{BASE_URL}</id>
+  <link rel="alternate" href="{BASE_URL}"/>
+  <link rel="self" href="{BASE_URL+"/feed.atom"}"/>
   <updated>{feed.feed_last_updated.isoformat()}</updated>
   <author>
     <name>{AUTHOR_NAME}</name>
+    <email>{AUTHOR_EMAIL}</email>
+    <uri>{BASE_URL}</uri>
   </author>
   <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="{FEED_GENERATOR_VERSION}">
     Luis Victoria's Atom Feed Generator
   </generator>
+  <logo>/favicon.ico</logo>
+  <rights>© {str(datetime.now().year)} Luis Victoria. All rights reserved.</rights>
 """
 
     # TODO: Generate entries
