@@ -14,7 +14,8 @@ from pathlib import Path
 # CONSTANTS
 AUTHOR_NAME: str = "Luis Victoria"
 AUTHOR_EMAIL: str = "v@luis.vi"
-BASE_URL: str = "https://luis.vi"
+DOMAIN_NAME: str = "luis.vi"
+BASE_URL: str = "https://" + DOMAIN_NAME
 FEED_TITLE: str = AUTHOR_NAME
 FEED_SUBTITLE: str = "Creating to Understand"
 SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
@@ -49,15 +50,16 @@ def get_feed_content() -> FeedContent:
 def generate_file_contents(feed: FeedContent) -> str:
     """Generates the entire `feed.atom` file as a string."""
 
+    # TODO: Fix the `<id>` tag under the `<updated>` tag
     final_str = ""
     final_str += f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">{FEED_TITLE}</title>
   <subtitle type="text">{FEED_SUBTITLE}</subtitle>
-  <id>{BASE_URL}</id>
-  <link rel="alternate" href="{BASE_URL}"/>
-  <link rel="self" href="{BASE_URL+"/feed.atom"}"/>
   <updated>{feed.feed_last_updated.isoformat()}</updated>
+  <id>tag:{DOMAIN_NAME},2024</id>
+  <link rel="alternate" type="text/html" href="{BASE_URL}"/>
+  <link rel="self" type="application/atom+xml" href="{BASE_URL+"/feed.atom"}"/>
   <author>
     <name>{AUTHOR_NAME}</name>
     <email>{AUTHOR_EMAIL}</email>
