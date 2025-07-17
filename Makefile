@@ -12,3 +12,7 @@ check:
 	@tsc --pretty > /dev/null 2>&1 && \
 		echo "✅ Type check passed! All is good." || \
 		(echo "❌ Type check failed! See errors below:" && tsc)
+
+.PHONY: rss
+rss:
+	@python3 scripts/rss.py

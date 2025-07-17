@@ -175,6 +175,11 @@ footer .contact a[href*="lichess.org"] {
     padding-left: 2em;
 }
 
+footer .contact a[href*="feed.atom"] {
+    background-image: url("../images/icons/rss.svg");
+    padding-left: 2em;
+}
+
 hr {
     border: none;
     border-top: 1px dotted var(--border-color);
