@@ -25,18 +25,38 @@ class Entry:
     last_updated: datetime
     html_content: str
 
+@dataclass
+class FeedContent:
+    base_url: str
+    feed_name: str
+    author_name: str
+    feed_last_updated: datetime
+    entries: list[Entry]
 
-def generate_file_contents(feed_timestamp: datetime) -> str:
+
+def get_feed_content() -> FeedContent:
+    """Parse `feed.atom`, `public/`, and Git metadata to generate `FeedContent`."""
+    # STUB: Parse content
+    return FeedContent(
+        base_url=BASE_URL,
+        feed_name=FEED_NAME,
+        author_name=AUTHOR_NAME,
+        feed_last_updated=datetime.now(),
+        entries=[],
+    )
+
+
+def generate_file_contents(feed: FeedContent) -> str:
     """Generates the entire `feed.atom` file as a string."""
 
     final_str = ""
     final_str += f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>{FEED_NAME}</title>
-  <id>{BASE_URL}</id>
-  <link rel="alternate" href="{BASE_URL}"/>
-  <link rel="self" href="{BASE_URL+"/feed.atom"}"/>
-  <updated>{feed_timestamp.isoformat()}</updated>
+  <title>{feed.feed_name}</title>
+  <id>{feed.base_url}</id>
+  <link rel="alternate" href="{feed.base_url}"/>
+  <link rel="self" href="{feed.base_url+"/feed.atom"}"/>
+  <updated>{feed.feed_last_updated.isoformat()}</updated>
   <author>
     <name>{AUTHOR_NAME}</name>
   </author>
@@ -49,7 +69,7 @@ def generate_file_contents(feed_timestamp: datetime) -> str:
     return final_str
 
 
-def write_feed_file(content: str) -> None:
+def write_file(content: str) -> None:
     """Writes the `feed.atom` file."""
     if FEED_FILE.is_file():
         FEED_FILE.unlink()
@@ -59,17 +79,7 @@ def write_feed_file(content: str) -> None:
 
 def main() -> None:
     """Script entrypoint."""
-    should_write_file: bool = False
-
-    if not FEED_FILE.is_file():
-        should_write_file = True
-        write_feed_file(generate_file_contents(datetime.now()))
-        return
-
-    # Check against current `feed.atom` and site-tree cache (aka check if the file needs updating)
-    # Update `feed.atom` file accordingly
-
-    print(generate_file_contents(datetime.now()))
+    write_file(generate_file_contents(get_feed_content()))
 
 
 if __name__ == "__main__":
