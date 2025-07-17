@@ -21,7 +21,8 @@ class Entry:
     html_content: str
 
 
-def generate_file(base_url: str, feed_timestamp: datetime) -> str:
+def generate_file(base_url: str, feed_timestamp: datetime, entries: list[Entry]) -> str:
+    # TODO: Generate entries
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{FEED_NAME}</title>
@@ -62,6 +63,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     # Check if `feed.atom` file exists
+    # If it does, parse the file
     print("Hello world")
 
 
