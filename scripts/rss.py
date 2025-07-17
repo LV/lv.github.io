@@ -16,6 +16,7 @@ SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
 
 @dataclass
 class Entry:
+    """An RSS entry."""
     title: str
     url: str
     permalink_id: str
@@ -24,7 +25,8 @@ class Entry:
     html_content: str
 
 
-def generate_file(feed_timestamp: datetime, entries: list[Entry]) -> str:
+def generate_file(feed_timestamp: datetime) -> str:
+    """Generates the entire `feed.atom` file as a string."""
     # TODO: Generate entries
     header: str = f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -38,17 +40,16 @@ def generate_file(feed_timestamp: datetime, entries: list[Entry]) -> str:
   </author>
 """
 
-    # if entries:
+    # Check for entries in `SITE_DIR`
 
     footer: str = "</feed>"
 
 
 def main() -> None:
-    # Parse site tree (`public`)
-        # Check if `feed.atom` exists
+    """Script entrypoint."""
+    # Check if `feed.atom` exists
     # Check against current `feed.atom` and site-tree cache
     # Update `feed.atom` file accordingly
-    print(SITE_DIR)
 
 
 if __name__ == "__main__":
