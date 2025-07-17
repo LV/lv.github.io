@@ -36,9 +36,12 @@ def parse_args() -> argparse.Namespace:
         prog="RSS Generator",
         description="Generate, edit, and modify the `feed.atom` for RSS support",
     )
+    parser.add_argument(
+        "-u",
+        "--update-feed-timestamp",
+        help="Update the feed's last modified timestamp to now",
+    )
     # Feature request: Add blog post; should create a new entry in the RSS
-    # Feature request: Refresh blog last updated time
-    # parser.add_argument("-u", "--update")
 
     return parser.parse_args()
 
