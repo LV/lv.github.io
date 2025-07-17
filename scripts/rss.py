@@ -12,6 +12,7 @@ AUTHOR_NAME: str = "Luis Victoria"
 BASE_URL: str = "https://luis.vi"
 FEED_NAME: str = "Luis Victoria's Blog"
 SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
+FEED_FILE: Path = SITE_DIR / "feed.atom"
 
 
 @dataclass
@@ -27,7 +28,9 @@ class Entry:
 
 def generate_file_contents(feed_timestamp: datetime) -> str:
     """Generates the entire `feed.atom` file as a string."""
-    header: str = f"""<?xml version="1.0" encoding="UTF-8"?>
+
+    final_str = ""
+    final_str += f"""<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{FEED_NAME}</title>
   <id>{BASE_URL}</id>
@@ -42,19 +45,31 @@ def generate_file_contents(feed_timestamp: datetime) -> str:
     # TODO: Generate entries
     # Check for entries in `SITE_DIR`, and generate them accordingly
 
-    footer: str = "</feed>"
+    final_str += "</feed>"
+    return final_str
+
+
+def write_feed_file(content: str) -> None:
+    """Writes the `feed.atom` file."""
+    if FEED_FILE.is_file():
+        FEED_FILE.unlink()
+
+    FEED_FILE.write_text(content)
 
 
 def main() -> None:
     """Script entrypoint."""
     should_write_file: bool = False
 
-    FEED_FILE: Path = SITE_DIR / "feed.atom"
     if not FEED_FILE.is_file():
         should_write_file = True
+        write_feed_file(generate_file_contents(datetime.now()))
+        return
 
     # Check against current `feed.atom` and site-tree cache (aka check if the file needs updating)
     # Update `feed.atom` file accordingly
+
+    print(generate_file_contents(datetime.now()))
 
 
 if __name__ == "__main__":
