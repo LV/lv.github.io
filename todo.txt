@@ -1,0 +1,2 @@
+TODO:
+- Force all requests to be done in HTTPS -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security
