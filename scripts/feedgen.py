@@ -18,7 +18,7 @@ DOMAIN_NAME: str = "luis.vi"
 BASE_URL: str = "https://" + DOMAIN_NAME
 FEED_TITLE: str = AUTHOR_NAME
 FEED_SUBTITLE: str = "Creating to Understand"
-SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public"
+SITE_DIR: Path = Path(__file__).resolve().parent.parent / "public" # TODO: Clean out things in `.gitignore`?
 FEED_FILE: Path = SITE_DIR / "feed.atom"
 
 
@@ -31,6 +31,7 @@ class Entry:
     published: datetime
     last_updated: datetime
     html_content: str
+
 
 @dataclass
 class FeedContent:
