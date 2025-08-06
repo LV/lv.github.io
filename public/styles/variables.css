@@ -1,5 +1,5 @@
 :root {
-    /* https://modernfontstacks.com/ */
+    /* Font code taken from modernfontstacks.com; prioritize instant rendering */
     /* Old Style font */
     --font-system: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
     /* monospace code font */
