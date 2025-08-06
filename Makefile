@@ -1,5 +1,10 @@
-.PHONY: all
-all: check run
+.PHONY: help
+help:
+	@echo "Makefile commands:"
+	@echo "  help      - Show this help message"
+	@echo "  run       - Run a local Python HTTP server for debugging"
+	@echo "  check     - Perform type checks on Javascript code"
+	@echo "  feedgen   - Generate feed.atom file"
 
 .PHONY: run
 run:
@@ -15,4 +20,5 @@ check:
 
 .PHONY: feedgen
 feedgen:
+	@echo "Generating feed.atom file..."
 	@python3 scripts/feedgen.py
