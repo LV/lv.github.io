@@ -4,16 +4,18 @@ class Html extends String { }
 
 
 /**
- * Marks a string as `HTML` to not encode it
+ * Marks a string as safe HTML that should not be encoded
  *
- * Normally, strings are entity-encoded (e.g. `&lt;` instead of `<`)
- *   before being inserted into HTML
+ * Should be used when you have a string that contains intentional HTML
+ * markup that should be preserved as-is, rather than being escaped.
  *
- * The following wraps the string into the `Html` class to skip encoding
+ * Examples:
+ *   htmlRaw('<b>Bold text</b>') -> Html('<b>Bold text</b>')
+ *   html`<p>${htmlRaw('<em>Emphasis</em>')}</p>` -> '<p><em>Emphasis</em></p>'
  *
  *
- * @param {string} str
- * @returns {Html}
+ * @param {string} str - HTML string that should not be encoded
+ * @returns {Html} - String wrapped in `Html` class to skip encoding
  */
 export const htmlRaw = str => new Html(str);
 
