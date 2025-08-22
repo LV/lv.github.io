@@ -18,28 +18,37 @@ class Html extends String { }
 export const htmlRaw = str => new Html(str);
 
 
+/** @type {Record<string, string>} */
+const HTML_ENTITIES = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&apos;', // sexier than using `&#39;`
+  '"': '&quot;'
+};
+
 /**
- * Escapes special characters for safe insertion into HTML
+ * Escapes special HTML characters for XSS protection
+ *
+ * Converts special HTML characters into their HTML entity equivalents,
+ * ensuring they display as literal text instead of being interpreted
+ * as HTML markup
+ *
+ * Examples:
+ *   htmlEncode('<script>') -> '&lt;script&gt;'
+ *   htmlEncode('Tom & Jerry') -> 'Tom &amp; Jerry'
+ *   htmlEncode(htmlRaw('<b>Bold</b>')) -> '<b>Bold</b>' (no change)
  *
  *
- * @param {*} value
- * @returns {Html}
+ * @param {*} value - Any value to be safely inserted into HTML
+ * @returns {Html} - HTML-safe string wrapped in `Html` class
  */
 export const htmlEncode = (value) => {
-  // Avoid double-encoding if value is already `Html`
+  // Avoid double-encoding if value is already safe `Html`
   if (value instanceof Html) return value;
 
-  /** @type {Record<string, string>} */
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
-  };
-
   return htmlRaw(
-    String(value).replace(/[&<>'"]/g, (tag) => map[tag])
+    String(value).replace(/[&<>'"]/g, (char) => HTML_ENTITIES[char])
   );
 };
 
