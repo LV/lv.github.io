@@ -1,0 +1,25 @@
+# Workflow for type checking before allowing merge to `master`
+name: Type Check
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]  # optional, if you want it on direct pushes too
+
+concurrency:
+  # One “lane” per PR number; falls back to branch ref for pushes.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: npm
+      - run: npm ci
+      - run: make check
