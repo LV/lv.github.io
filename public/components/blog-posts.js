@@ -27,7 +27,6 @@ class LatestPosts extends HTMLElement {
         // Iterate across all `<entry>` tags in the feed
         /** @type {NodeListOf<Element>} */
         const entries = xmlDoc.querySelectorAll('entry');
-        console.log(`Found ${entries.length} entries`);
 
         const feedItems = Array.from(entries)
           .slice(0, ENTRIES_TO_SHOW)
@@ -39,7 +38,26 @@ class LatestPosts extends HTMLElement {
           }))
           .filter(item => item.title && item.link);
 
-        console.log('Feed items:', feedItems);
+        if (feedItems.length === 0) {
+          this.innerHTML = 'No blog posts found.';
+          return;
+        }
+
+        this.innerHTML = String(html`
+          <ul class="cards">
+            ${feedItems.map(item => html`
+              <li class="card">
+                <h3><a href="${item.link}">${item.title}</a></h3>
+                <p>${item.summary}</p>
+                <small>
+                  <time datetime="${item.published}">
+                    ${item.published ? new Date(item.published).toLocaleDateString('en-US', { dateStyle: 'long' }) : 'No date'}
+                  </time>
+                </small>
+              </li>
+            `).join('')}
+          </ul>
+        `);
       })
       .catch(error => {
         this.textContent = `Error: ${error.message}`;
