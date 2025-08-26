@@ -4,5 +4,5 @@ const app = () => {
   blogPostsComponent();
 }
 
-// Ensure that HTML is fully loaded before registering components by using `async`
+// Ensure that HTML is fully loaded before registering components
 document.addEventListener('DOMContentLoaded', app);
