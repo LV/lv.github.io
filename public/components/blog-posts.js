@@ -11,7 +11,7 @@ class LatestPosts extends HTMLElement {
     // Fallback text to display while content loads
     this.textContent = "Loading...";
 
-    fetch(import.meta.resolve('../feed.atom'))
+    fetch('/feed.atom')
       .then(response => response.text())
       .then(xmlText => {
         // Convert the XML file string into queryable DOM
