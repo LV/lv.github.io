@@ -5,54 +5,31 @@ import { html } from '../lib/html.js';
 /** @type {number} */
 const ENTRIES_TO_SHOW = 6;
 
-const pathify = (url) => url && new URL(url).pathname.replace('/blog/', './');
-
 class LatestPosts extends HTMLElement {
-    connectedCallback() {
-        this.textContent = "Loading...";
-        // show the most recent items from the RSS feed
-        fetch(import.meta.resolve('../feed.atom'))
-            .then(response => response.text())
-            .then(text => new DOMParser().parseFromString(text, "text/xml"))
-            .then(data => {
-                const parserError = data.querySelector('parsererror div');
-                if (parserError) {
-                    throw new Error(parserError.textContent);
-                }
-                // only the most recent entries as per ENTRIES_TO_SHOW
-                const feedItems = 
-                    [...data.querySelectorAll('entry')].slice(0, ENTRIES_TO_SHOW)
-                    .map(item => ({
-                        title: item.querySelector('title')?.textContent,
-                        link: pathify(item.querySelector('id')?.textContent),
-                        published: item.querySelector('published')?.textContent,
-                        updated: item.querySelector('updated')?.textContent,
-                        summary: item.querySelector('summary')?.textContent,
-                        image: pathify(item.querySelector('content')?.getAttribute('url'))
-                    }))
-                    // sanity check
-                    .filter(item => item.link && item.title);
-                if (feedItems.length) {
-                    this.innerHTML = '<ul class="cards">' +
-                        feedItems.map(item => html`
-                            <li class="card">
-                                ${item.image ? html`<img src="${item.image}" aria-hidden="true" loading="lazy" />` : ''}
-                                <h3><a href="${item.link}">${item.title}</a></h3>
-                                <p>${item.summary}</p>
-                                <small>
-                                    <time datetime="${item.published}">
-                                        ${new Date(item.published).toLocaleDateString('en-US', { dateStyle: 'long' })}
-                                    </time>
-                                </small>
-                            </li>
-                        `).join('\n') +
-                        '</ul>';
-                } else {
-                    this.innerHTML = 'Something went wrong...';
-                }
-            })
-            .catch(e => this.textContent = e.message);
-    }
+  // `connectedCallback` immediately loads; doesn't need explicit call to a function
+  connectedCallback() {
+    // Fallback text to display while content loads
+    this.textContent = "Loading...";
+
+    fetch(import.meta.resolve('../feed.atom'))
+      .then(response => response.text())
+      .then(xmlText => {
+        // Convert the XML file string into queryable DOM
+        const xmlDoc = new DOMParser().parseFromString(xmlText, "text/xml");
+
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+          throw new Error('Invalid XML');
+        }
+
+        // Iterate across all `<entry>` tags in the feed
+        const entries = xmlDoc.querySelectorAll('entry');
+        console.log(`Found ${entries.length} entries`);
+      })
+      .catch(error => {
+        this.textContent = `Error: ${error.message}`;
+      });
+  }
 }
 
-export const registerBlogLatestPosts = () => customElements.define('lv-blog-posts', LatestPosts);
+export const blogPostsComponent = () => customElements.define('lv-blog-posts', LatestPosts);
