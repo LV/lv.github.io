@@ -15,16 +15,31 @@ class LatestPosts extends HTMLElement {
       .then(response => response.text())
       .then(xmlText => {
         // Convert the XML file string into queryable DOM
+        /** @type {Document} */
         const xmlDoc = new DOMParser().parseFromString(xmlText, "text/xml");
 
+        /** @type {Element | null} */
         const parserError = xmlDoc.querySelector('parsererror');
         if (parserError) {
           throw new Error('Invalid XML');
         }
 
         // Iterate across all `<entry>` tags in the feed
+        /** @type {NodeListOf<Element>} */
         const entries = xmlDoc.querySelectorAll('entry');
         console.log(`Found ${entries.length} entries`);
+
+        const feedItems = Array.from(entries)
+          .slice(0, ENTRIES_TO_SHOW)
+          .map(entry => ({
+            title: entry.querySelector('title')?.textContent,
+            link: entry.querySelector('link')?.getAttribute('href'),
+            published: entry.querySelector('published')?.textContent,
+            summary: entry.querySelector('summary')?.textContent
+          }))
+          .filter(item => item.title && item.link);
+
+        console.log('Feed items:', feedItems);
       })
       .catch(error => {
         this.textContent = `Error: ${error.message}`;
