@@ -61,7 +61,7 @@ def generate_file_contents(feed: FeedContent) -> str:
   <id>tag:{DOMAIN_NAME},2024</id>
   <link rel="alternate" type="text/html" href="{BASE_URL}"/>
   <link rel="self" type="application/atom+xml" href="{BASE_URL+"/feed.atom"}"/>
-  <rights>© {str(datetime.now().year)} {AUTHOR_NAME}. All rights reserved.</rights>
+  <rights>© 2016-{str(datetime.now().year)} {AUTHOR_NAME}. All rights reserved.</rights>
   <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="{FEED_GENERATOR_VERSION}">
     Luis Victoria's Atom Feed Generator
   </generator>

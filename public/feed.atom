@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">Luis Victoria</title>
   <subtitle type="text">Creating to Understand</subtitle>
-  <updated>2025-07-17T22:29:54.810370</updated>
+  <updated>2026-02-12T01:55:34.264819</updated>
   <id>tag:luis.vi,2024</id>
   <link rel="alternate" type="text/html" href="https://luis.vi"/>
   <link rel="self" type="application/atom+xml" href="https://luis.vi/feed.atom"/>
-  <rights>© 2025 Luis Victoria. All rights reserved.</rights>
+  <rights>© 2016-2026 Luis Victoria. All rights reserved.</rights>
   <generator uri="https://github.com/LV/lv.github.io/blob/master/scripts/feedgen.py" version="0.1.0">
     Luis Victoria's Atom Feed Generator
   </generator>
