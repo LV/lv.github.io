@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "http-server public -c-1",
-    "serve": "python3 -m http.server -d public",
+    "serve": "http-server public -c600 -d false",
     "check": "tsc --pretty",
     "feedgen": "python3 scripts/feedgen.py",
     "build": "npm run check && npm run feedgen"
