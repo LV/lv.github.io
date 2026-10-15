@@ -6,6 +6,6 @@ var site = Site{
 	Description: "Creating to Understand",
 	Author:      "Luis Victoria",
 	Pages: []Page{
-		{Path: "index.html"},
+		{Path: "index.html", Source: "index.md"},
 	},
 }
