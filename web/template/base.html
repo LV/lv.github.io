@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{.Site.Title}}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="{{.Site.Subtitle}}">
+    <meta name="author" content="{{.Site.Author}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="./favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="alternate" type="application/atom+xml" title="{{.Site.Feed.Title}}" href="./feed.atom">
+  </head>
+
+  <body>
+    <main>
+      {{- block "main" .}}{{.Body}}{{end -}}
+    </main>
+  </body>
+</html>
