@@ -27,10 +27,3 @@ func TestDiscover(t *testing.T) {
 		t.Errorf("Discover() = %+v, want %+v", pages, want)
 	}
 }
-
-func TestDiscoverMissingIndex(t *testing.T) {
-	content := fstest.MapFS{"blog/index.md": {}}
-	if _, err := Discover(content); err == nil {
-		t.Error("Discover() without index.md: got nil error")
-	}
-}

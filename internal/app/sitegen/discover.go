@@ -1,14 +1,14 @@
 package sitegen
 
 import (
-	"errors"
 	"io/fs"
 	"path"
 	"strings"
 )
 
 // Discover returns a Page for every Markdown file in content, in alphabetical
-// order. Each x/y.md becomes x/y.html. The root must have an index.md.
+// order. Each x/y.md becomes x/y.html. Callers run CheckRequired first, which
+// ensures index.md exists.
 func Discover(content fs.FS) ([]Page, error) {
 	var pages []Page
 	err := fs.WalkDir(content, ".", func(p string, d fs.DirEntry, err error) error {
@@ -23,9 +23,6 @@ func Discover(content fs.FS) ([]Page, error) {
 	})
 	if err != nil {
 		return nil, err
-	}
-	if _, err := fs.Stat(content, "index.md"); err != nil {
-		return nil, errors.New("index.md is required")
 	}
 	return pages, nil
 }
