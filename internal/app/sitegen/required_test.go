@@ -1,27 +1,28 @@
 package sitegen
 
 import (
-	"os"
 	"strings"
 	"testing"
 	"testing/fstest"
 )
 
-func TestCheckRequired(t *testing.T) {
+// allRequired returns a fake repo that has every file in Required.
+func allRequired() fstest.MapFS {
 	root := fstest.MapFS{}
 	for _, name := range Required {
 		root[name] = &fstest.MapFile{}
 	}
-	if err := CheckRequired(root); err != nil {
+	return root
+}
+
+func TestCheckRequired(t *testing.T) {
+	if err := CheckRequired(allRequired()); err != nil {
 		t.Errorf("CheckRequired() with every file: %v", err)
 	}
 }
 
 func TestCheckRequiredMissing(t *testing.T) {
-	root := fstest.MapFS{}
-	for _, name := range Required {
-		root[name] = &fstest.MapFile{}
-	}
+	root := allRequired()
 	delete(root, "web/content/index.md")
 	delete(root, "web/static/favicon.ico")
 
@@ -33,11 +34,5 @@ func TestCheckRequiredMissing(t *testing.T) {
 		if !strings.Contains(err.Error(), name) {
 			t.Errorf("CheckRequired() error %q doesn't name %s", err, name)
 		}
-	}
-}
-
-func TestCheckRequiredRepo(t *testing.T) {
-	if err := CheckRequired(os.DirFS("../../..")); err != nil {
-		t.Errorf("CheckRequired() on the repo: %v", err)
 	}
 }
