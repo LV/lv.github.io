@@ -20,6 +20,11 @@ var RequiredAssets = []string{
 	"web/static/favicon.ico",
 	"web/static/favicon-dark.ico",
 	"web/static/index.css",
+	"web/static/styles/reset.css",
+	"web/static/styles/variables.css",
+	"web/static/styles/global.css",
+	"web/static/components/header/header.css",
+	"web/static/components/footer/footer.css",
 }
 
 // CheckRequired returns an error naming every file in RequiredInputs and

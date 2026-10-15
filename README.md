@@ -18,3 +18,8 @@ The site links to:
 - `web/static/favicon.ico`: the favicon (light mode)
 - `web/static/favicon-dark.ico`: the favicon (dark mode)
 - `web/static/index.css`: the stylesheet
+- `web/static/styles/reset.css`: the CSS reset, imported by `index.css`
+- `web/static/styles/variables.css`: the shared CSS variables, imported by `index.css`
+- `web/static/styles/global.css`: the site-wide styles, imported by `index.css`
+- `web/static/components/header/header.css`: the header styles, imported by `index.css`
+- `web/static/components/footer/footer.css`: the footer styles, imported by `index.css`
