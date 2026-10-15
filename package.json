@@ -4,7 +4,7 @@
   "description": "My personal blog: luis.vi",
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server -d public",
+    "dev": "npx http-server public -c-1",
     "serve": "python3 -m http.server -d public",
     "check": "tsc --pretty",
     "feedgen": "python3 scripts/feedgen.py",
