@@ -144,53 +144,6 @@ aside x-code-viewer {
     margin: 1em;
 }
 
-footer {
-    margin: 2.5em 0;
-    text-align: center;
-}
-
-footer .contact a {
-    color: inherit;
-    background-repeat: no-repeat;
-    background-position: center left;
-    background-size: contain;
-    margin: 0 0.5em;
-}
-
-footer .contact a:hover {
-    color: var(--link-color);
-}
-
-footer .contact a[href*="github.com"] {
-    background-image: url("../images/icons/github.svg");
-    padding-left: 2em;
-}
-
-footer .contact a[href*="linkedin.com"] {
-    background-image: url("../images/icons/linkedin.svg");
-    padding-left: 2em;
-}
-
-footer .contact a[href*="youtube.com"] {
-    background-image: url("../images/icons/youtube.svg");
-    padding-left: 2em;
-}
-
-footer .contact a[href*="twitch.tv"] {
-    background-image: url("../images/icons/twitch.svg");
-    padding-left: 2em;
-}
-
-footer .contact a[href*="lichess.org"] {
-    background-image: url("../images/icons/lichess.svg");
-    padding-left: 2em;
-}
-
-footer .contact a[href*="feed.atom"] {
-    background-image: url("../images/icons/rss.svg");
-    padding-left: 2em;
-}
-
 hr {
     border: none;
     border-top: 1px dotted var(--border-color);
