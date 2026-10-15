@@ -17,11 +17,6 @@ a, a:hover {
     color: var(--link-color);
 }
 
-header {
-    margin-bottom: 1.5em;
-    text-align: center;
-}
-
 h1, h2, h3, h4, p {
     margin-bottom: 0.5em;
 }
@@ -54,37 +49,6 @@ dt {
 dd {
     margin-left: 1.5em;
     margin-bottom: 1em;
-}
-
-nav ol {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 1em 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-nav li {
-    display: inline-block;
-    padding: 0.5em 0.7em;
-    border: none;
-    background-color: var(--nav-background-color);
-    border-left: 2px solid var(--nav-separator-color);
-    border-bottom: 2px solid var(--background-color);
-}
-
-nav li:hover, nav li:has(a[aria-current]) {
-    filter: brightness(1.03);
-}
-
-nav li a {
-    color: inherit;
-}
-
-nav li a[aria-current] {
-    text-decoration: none;
 }
 
 code {
