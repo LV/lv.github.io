@@ -9,4 +9,4 @@ class HelloWorldComponent extends HTMLElement {
     }
 }
 
-export const helloWorldComponent = () => customElements.define("lv-hello-world", HelloWorldComponent);
+export const registerHelloWorldComponent = () => customElements.define("lv-hello-world", HelloWorldComponent);
