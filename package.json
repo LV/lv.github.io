@@ -4,8 +4,8 @@
   "description": "My personal blog: luis.vi",
   "type": "module",
   "scripts": {
-    "dev": "npx http-server public -c-1",
-    "serve": "python3 -m http.server -d public",
+    "dev": "http-server public -c-1",
+    "serve": "http-server public -c600 -d false",
     "check": "tsc --pretty",
     "feedgen": "python3 scripts/feedgen.py",
     "build": "npm run check && npm run feedgen"
@@ -27,6 +27,7 @@
   },
   "homepage": "https://luis.vi",
   "devDependencies": {
+    "http-server": "14.1.1",
     "typescript": "^5.0.0"
   },
   "engines": {
