@@ -11,7 +11,12 @@ func TestLoadSite(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := Site{Title: "LV", Subtitle: "Creating to Understand", Author: "Luis Victoria"}
+	want := Site{
+		Title:    "LV",
+		Subtitle: "Creating to Understand",
+		Author:   "Luis Victoria",
+		Feed:     Feed{Title: "Luis Victoria's Blog Feed"},
+	}
 	if s != want {
 		t.Errorf("LoadSite() = %+v, want %+v", s, want)
 	}

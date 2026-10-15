@@ -6,6 +6,12 @@ type Site struct {
 	Title    string `json:"title"`
 	Subtitle string `json:"subtitle"`
 	Author   string `json:"author"`
+	Feed     Feed   `json:"feed"`
+}
+
+// Feed holds the settings for the site's Atom feed.
+type Feed struct {
+	Title string `json:"title"` // the title on each page's <link rel="alternate"> to the feed
 }
 
 // Page is one HTML file in dist/, built from one Markdown file in web/content/.

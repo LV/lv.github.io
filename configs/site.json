@@ -1,5 +1,8 @@
 {
   "title": "LV",
   "subtitle": "Creating to Understand",
-  "author": "Luis Victoria"
+  "author": "Luis Victoria",
+  "feed": {
+    "title": "Luis Victoria's Blog Feed"
+  }
 }
