@@ -176,6 +176,11 @@ footer .contact a[href*="youtube.com"] {
     padding-left: 2em;
 }
 
+footer .contact a[href*="twitch.tv"] {
+    background-image: url("../images/icons/twitch.svg");
+    padding-left: 2em;
+}
+
 footer .contact a[href*="lichess.org"] {
     background-image: url("../images/icons/lichess.svg");
     padding-left: 2em;
