@@ -8,6 +8,7 @@ type Site struct {
 	Title       string
 	Description string
 	Author      string
+	Pages       []Page
 }
 
 // Page is one HTML file in dist/.
