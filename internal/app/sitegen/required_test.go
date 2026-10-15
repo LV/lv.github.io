@@ -6,10 +6,11 @@ import (
 	"testing/fstest"
 )
 
-// allRequired returns a fake repo that has every file in Required.
+// allRequired returns a fake repo that has every file in RequiredInputs and
+// RequiredAssets.
 func allRequired() fstest.MapFS {
 	root := fstest.MapFS{}
-	for _, name := range Required {
+	for _, name := range append(RequiredInputs, RequiredAssets...) {
 		root[name] = &fstest.MapFile{}
 	}
 	return root
