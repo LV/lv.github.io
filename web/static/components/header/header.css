@@ -1,0 +1,39 @@
+lv-header {
+    display: block;
+}
+
+lv-header header {
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+lv-header nav ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+lv-header nav li {
+    display: inline-block;
+    padding: 0.5em 0.7em;
+    border: none;
+    background-color: var(--nav-background-color);
+    border-left: 2px solid var(--nav-separator-color);
+    border-bottom: 2px solid var(--background-color);
+}
+
+lv-header nav li:hover, lv-header nav li:has(a[aria-current]) {
+    filter: brightness(1.03);
+}
+
+lv-header nav li a {
+    color: inherit;
+}
+
+lv-header nav li a[aria-current] {
+    text-decoration: none;
+}
