@@ -10,7 +10,7 @@ import (
 
 const (
 	permDir     = 0o755 // owner: read, write, open; everyone else: read, open
-	permFile    = 0o644
+	permFile    = 0o644 // owner: read, write; everyone else: read
 	dirOut      = "_site"
 	dirTemplate = "web/template"
 	dirStatic   = "web/static"
