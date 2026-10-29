@@ -2,4 +2,4 @@
 @import "./styles/variables.css";
 @import "./styles/global.css";
 @import "./components/header/header.css";
-@import "./components/footer/footer.css";
+@import "./styles/footer.css";
