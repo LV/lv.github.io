@@ -15,6 +15,13 @@ const (
 	permFile = 0o644 // owner: read, write; everyone else: read
 )
 
+// pageData holds the values a page fills into the layout.
+type pageData struct {
+	Title       string
+	Description string
+	Current     string // which nav link the header marks as current
+}
+
 func main() {
 	if err := os.RemoveAll(site.DirOut); err != nil {
 		log.Fatal(err)
@@ -22,10 +29,18 @@ func main() {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
-	if err := renderPage("index.html"); err != nil {
+	if err := renderPage("index.html", pageData{
+		Title:       "LV",
+		Description: "Creating to Understand",
+		Current:     "home",
+	}); err != nil {
 		log.Fatal(err)
 	}
-	if err := renderPage("blog/index.html"); err != nil {
+	if err := renderPage("blog/index.html", pageData{
+		Title:       "LV - Blog",
+		Description: "Thoughts and Experiments",
+		Current:     "blog",
+	}); err != nil {
 		log.Fatal(err)
 	}
 	if err := writeStatic(); err != nil {
@@ -33,13 +48,16 @@ func main() {
 	}
 }
 
-// renderPage renders the template at site.DirTemplate/page into
-// site.DirOut/page, creating any folders the output path needs.
-func renderPage(page string) error {
-	pathTmpl := filepath.Join(site.DirTemplate, page)
+// renderPage renders the page template at site.DirPage/page inside the base
+// layout, and writes the result to site.DirOut/page, creating any folders
+// the output path needs.
+func renderPage(page string, data pageData) error {
+	pathLayout := filepath.Join(site.DirLayout, "base.html")
+	pathTmpl := filepath.Join(site.DirPage, page)
 	pathOut := filepath.Join(site.DirOut, page)
 
-	tmpl, err := template.ParseFiles(pathTmpl)
+	// The layout must come first: Execute runs the first file's template.
+	tmpl, err := template.ParseFiles(pathLayout, pathTmpl)
 	if err != nil {
 		return err
 	}
@@ -53,7 +71,7 @@ func renderPage(page string) error {
 		return err
 	}
 
-	if err := tmpl.Execute(f, nil); err != nil {
+	if err := tmpl.Execute(f, data); err != nil {
 		f.Close()
 		return err
 	}

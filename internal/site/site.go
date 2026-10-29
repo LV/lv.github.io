@@ -2,7 +2,8 @@
 package site
 
 const (
-	DirOut      = "_site"
-	DirTemplate = "web/template"
-	DirStatic   = "web/static"
+	DirOut    = "_site"
+	DirLayout = "web/template/layout"
+	DirPage   = "web/template/page"
+	DirStatic = "web/static"
 )
