@@ -3,7 +3,7 @@ header {
     text-align: center;
 }
 
-header nav ol {
+header nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
