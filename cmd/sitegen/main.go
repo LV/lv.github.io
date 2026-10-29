@@ -22,7 +22,10 @@ func main() {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
-	if err := buildHomepage(); err != nil {
+	if err := renderPage("index.html"); err != nil {
+		log.Fatal(err)
+	}
+	if err := renderPage("blog/index.html"); err != nil {
 		log.Fatal(err)
 	}
 	if err := writeStatic(); err != nil {
@@ -30,14 +33,22 @@ func main() {
 	}
 }
 
-// buildHomepage renders the homepage template into the output directory.
-func buildHomepage() error {
-	tmpl, err := template.ParseFiles(filepath.Join(site.DirTemplate, "index.html"))
+// renderPage renders the template at site.DirTemplate/page into
+// site.DirOut/page, creating any folders the output path needs.
+func renderPage(page string) error {
+	pathTmpl := filepath.Join(site.DirTemplate, page)
+	pathOut := filepath.Join(site.DirOut, page)
+
+	tmpl, err := template.ParseFiles(pathTmpl)
 	if err != nil {
 		return err
 	}
 
-	f, err := os.Create(filepath.Join(site.DirOut, "index.html"))
+	if err := os.MkdirAll(filepath.Dir(pathOut), permDir); err != nil {
+		return err
+	}
+
+	f, err := os.Create(pathOut)
 	if err != nil {
 		return err
 	}
