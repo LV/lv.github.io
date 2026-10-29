@@ -16,5 +16,6 @@ fmt:
 	@go fmt ./...
 	@echo "project formatted successfully"
 
+.PHONY: serve
 serve: build
 	@go run ./cmd/serve
