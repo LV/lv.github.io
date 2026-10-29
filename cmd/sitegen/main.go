@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
@@ -9,8 +10,10 @@ import (
 
 const (
 	dirPerm     = 0o755 // owner: read, write, open; everyone else: read, open
+	filePerm    = 0o644
 	outDir      = "_site"
 	templateDir = "web/template"
+	staticDir   = "web/static"
 )
 
 func main() {
@@ -21,6 +24,9 @@ func main() {
 		log.Fatal(err)
 	}
 	if err := buildHomepage(); err != nil {
+		log.Fatal(err)
+	}
+	if err := writeStatic(); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -42,4 +48,30 @@ func buildHomepage() error {
 		return err
 	}
 	return f.Close()
+}
+
+// writeStatic writes every file under staticDir into outDir unchanged,
+// keeping the same relative paths.
+func writeStatic() error {
+	return filepath.WalkDir(staticDir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		rel, err := filepath.Rel(staticDir, path)
+		if err != nil {
+			return err
+		}
+		target := filepath.Join(outDir, rel)
+
+		if d.IsDir() {
+			return os.MkdirAll(target, dirPerm)
+		}
+
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		return os.WriteFile(target, data, filePerm)
+	})
 }
