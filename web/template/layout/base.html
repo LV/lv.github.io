@@ -14,9 +14,25 @@
   </head>
 
   <body>
-    {{/* Still show the contents if the user doesn't want to load JavaScript; can't fault them */}}
-    <noscript><strong>This page will not render correctly without JavaScript</strong></noscript>
-    <lv-header current="{{.Current}}"></lv-header>
+    <header>
+      <h1>Luis Victoria</h1>
+      <p>Creating to Understand</p>
+
+      <nav>
+        <ul>
+          {{if eq .Current "home"}}
+          <li><a href="#" aria-current="page">Home</a></li>
+          {{else}}
+          <li><a href="/">Home</a></li>
+          {{end}}
+          {{if eq .Current "blog"}}
+          <li><a href="#" aria-current="page">Blog</a></li>
+          {{else}}
+          <li><a href="/blog/">Blog</a></li>
+          {{end}}
+        </ul>
+      </nav>
+    </header>
 
     <main>
 {{template "content" .}}
