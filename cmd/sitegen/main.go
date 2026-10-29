@@ -9,18 +9,18 @@ import (
 )
 
 const (
-	dirPerm     = 0o755 // owner: read, write, open; everyone else: read, open
-	filePerm    = 0o644
-	outDir      = "_site"
-	templateDir = "web/template"
-	staticDir   = "web/static"
+	permDir     = 0o755 // owner: read, write, open; everyone else: read, open
+	permFile    = 0o644
+	dirOut      = "_site"
+	dirTemplate = "web/template"
+	dirStatic   = "web/static"
 )
 
 func main() {
-	if err := os.RemoveAll(outDir); err != nil {
+	if err := os.RemoveAll(dirOut); err != nil {
 		log.Fatal(err)
 	}
-	if err := os.MkdirAll(outDir, dirPerm); err != nil {
+	if err := os.MkdirAll(dirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
 	if err := buildHomepage(); err != nil {
@@ -33,12 +33,12 @@ func main() {
 
 // buildHomepage renders the homepage template into the output directory.
 func buildHomepage() error {
-	tmpl, err := template.ParseFiles(filepath.Join(templateDir, "index.html"))
+	tmpl, err := template.ParseFiles(filepath.Join(dirTemplate, "index.html"))
 	if err != nil {
 		return err
 	}
 
-	f, err := os.Create(filepath.Join(outDir, "index.html"))
+	f, err := os.Create(filepath.Join(dirOut, "index.html"))
 	if err != nil {
 		return err
 	}
@@ -50,28 +50,28 @@ func buildHomepage() error {
 	return f.Close()
 }
 
-// writeStatic writes every file under staticDir into outDir unchanged,
+// writeStatic writes every file under dirStatic into dirOut unchanged,
 // keeping the same relative paths.
 func writeStatic() error {
-	return filepath.WalkDir(staticDir, func(path string, d fs.DirEntry, err error) error {
+	return filepath.WalkDir(dirStatic, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 
-		rel, err := filepath.Rel(staticDir, path)
+		rel, err := filepath.Rel(dirStatic, path)
 		if err != nil {
 			return err
 		}
-		target := filepath.Join(outDir, rel)
+		target := filepath.Join(dirOut, rel)
 
 		if d.IsDir() {
-			return os.MkdirAll(target, dirPerm)
+			return os.MkdirAll(target, permDir)
 		}
 
 		data, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
-		return os.WriteFile(target, data, filePerm)
+		return os.WriteFile(target, data, permFile)
 	})
 }
