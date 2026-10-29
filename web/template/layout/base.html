@@ -19,22 +19,22 @@
 
       <nav>
         <ul>
-          {{if eq .Current "home"}}
+          {{- if eq .Current "home"}}
           <li><a href="#" aria-current="page">Home</a></li>
-          {{else}}
+          {{- else}}
           <li><a href="/">Home</a></li>
-          {{end}}
-          {{if eq .Current "blog"}}
+          {{- end}}
+          {{- if eq .Current "blog"}}
           <li><a href="#" aria-current="page">Blog</a></li>
-          {{else}}
+          {{- else}}
           <li><a href="/blog/">Blog</a></li>
-          {{end}}
+          {{- end}}
         </ul>
       </nav>
     </header>
 
     <main>
-{{template "content" .}}
+{{- template "content" .}}
     </main>
 
     <footer>
