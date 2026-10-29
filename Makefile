@@ -1,5 +1,5 @@
 .PHONY: all
-all: build
+all: serve
 
 .PHONY: build
 build:
@@ -15,3 +15,6 @@ clean:
 fmt:
 	@go fmt ./...
 	@echo "project formatted successfully"
+
+serve: build
+	@go run ./cmd/serve
