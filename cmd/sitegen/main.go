@@ -6,21 +6,20 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/LV/lv.github.io/internal/site"
 )
 
 const (
-	permDir     = 0o755 // owner: read, write, open; everyone else: read, open
-	permFile    = 0o644 // owner: read, write; everyone else: read
-	dirOut      = "_site"
-	dirTemplate = "web/template"
-	dirStatic   = "web/static"
+	permDir  = 0o755 // owner: read, write, open; everyone else: read, open
+	permFile = 0o644 // owner: read, write; everyone else: read
 )
 
 func main() {
-	if err := os.RemoveAll(dirOut); err != nil {
+	if err := os.RemoveAll(site.DirOut); err != nil {
 		log.Fatal(err)
 	}
-	if err := os.MkdirAll(dirOut, permDir); err != nil {
+	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
 	if err := buildHomepage(); err != nil {
@@ -33,12 +32,12 @@ func main() {
 
 // buildHomepage renders the homepage template into the output directory.
 func buildHomepage() error {
-	tmpl, err := template.ParseFiles(filepath.Join(dirTemplate, "index.html"))
+	tmpl, err := template.ParseFiles(filepath.Join(site.DirTemplate, "index.html"))
 	if err != nil {
 		return err
 	}
 
-	f, err := os.Create(filepath.Join(dirOut, "index.html"))
+	f, err := os.Create(filepath.Join(site.DirOut, "index.html"))
 	if err != nil {
 		return err
 	}
@@ -50,19 +49,19 @@ func buildHomepage() error {
 	return f.Close()
 }
 
-// writeStatic writes every file under dirStatic into dirOut unchanged,
+// writeStatic writes every file under site.DirStatic into site.DirOut unchanged,
 // keeping the same relative paths.
 func writeStatic() error {
-	return filepath.WalkDir(dirStatic, func(path string, d fs.DirEntry, err error) error {
+	return filepath.WalkDir(site.DirStatic, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 
-		rel, err := filepath.Rel(dirStatic, path)
+		rel, err := filepath.Rel(site.DirStatic, path)
 		if err != nil {
 			return err
 		}
-		target := filepath.Join(dirOut, rel)
+		target := filepath.Join(site.DirOut, rel)
 
 		if d.IsDir() {
 			return os.MkdirAll(target, permDir)
