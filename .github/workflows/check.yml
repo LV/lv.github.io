@@ -1,4 +1,4 @@
-name: Type Check
+name: Check
 on:
   pull_request:
     branches: [master]
@@ -8,18 +8,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  typecheck:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-go@v5
         with:
-          node-version: 18
-          cache: "npm"
+          go-version-file: go.mod
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Check formatting
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "These files are not gofmt-formatted:"
+            echo "$unformatted"
+            exit 1
+          fi
 
-      - name: Run type check
-        run: npm run check
+      - name: Check go.mod is tidy
+        run: go mod tidy -diff
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build site
+        run: make build

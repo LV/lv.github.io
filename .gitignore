@@ -6,6 +6,3 @@ _site/
 
 ### MacOS ###
 .DS_Store
-
-### Node.js ###
-node_modules/
