@@ -1,8 +1,8 @@
+### lv.github.io ###
+_site/
+
 ### Emacs ###
 *.~undo-tree~
 
 ### MacOS ###
 .DS_Store
-
-### Node.js ###
-node_modules/

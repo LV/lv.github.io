@@ -1,13 +1,9 @@
-lv-header {
-    display: block;
-}
-
-lv-header header {
+header {
     margin-bottom: 1.5em;
     text-align: center;
 }
 
-lv-header nav ol {
+header nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -17,7 +13,7 @@ lv-header nav ol {
     list-style-type: none;
 }
 
-lv-header nav li {
+header nav li {
     display: inline-block;
     padding: 0.5em 0.7em;
     border: none;
@@ -26,14 +22,14 @@ lv-header nav li {
     border-bottom: 2px solid var(--background-color);
 }
 
-lv-header nav li:hover, lv-header nav li:has(a[aria-current]) {
+header nav li:hover, header nav li:has(a[aria-current]) {
     filter: brightness(1.03);
 }
 
-lv-header nav li a {
+header nav li a {
     color: inherit;
 }
 
-lv-header nav li a[aria-current] {
+header nav li a[aria-current] {
     text-decoration: none;
 }

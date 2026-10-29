@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{.Title}}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="{{.Description}}">
+    <meta name="author" content="Luis Victoria">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="alternate" type="application/atom+xml" title="Luis Victoria's Blog Feed" href="/feed.atom">
+  </head>
+
+  <body>
+    <header>
+      <h1>Luis Victoria</h1>
+      <p>Creating to Understand</p>
+
+      <nav>
+        <ul>
+          {{if eq .Current "home"}}
+          <li><a href="#" aria-current="page">Home</a></li>
+          {{else}}
+          <li><a href="/">Home</a></li>
+          {{end}}
+          {{if eq .Current "blog"}}
+          <li><a href="#" aria-current="page">Blog</a></li>
+          {{else}}
+          <li><a href="/blog/">Blog</a></li>
+          {{end}}
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+{{template "content" .}}
+    </main>
+
+    <footer>
+      <hr>
+      <div class="contact">
+        <a href="https://github.com/lv">GitHub</a>
+        <a href="https://www.linkedin.com/in/luisvictoria">LinkedIn</a>
+        <a href="https://www.youtube.com/@luisvictoria">YouTube</a>
+        <a href="https://www.twitch.tv/luisvictoriajr">Twitch</a>
+        <a href="https://lichess.org/@/lavp">Lichess</a>
+        <a href="/feed.atom">RSS</a>
+      </div>
+      <br>
+      <p>&copy; 2016-2026 Luis Victoria</p>
+    </footer>
+  </body>
+</html>
