@@ -1,8 +1,10 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 const (
@@ -25,4 +27,19 @@ func main() {
 
 // buildHomepage renders the homepage template into the output directory.
 func buildHomepage() error {
+	tmpl, err := template.ParseFiles(filepath.Join(templateDir, "index.html"))
+	if err != nil {
+		return err
+	}
+
+	f, err := os.Create(filepath.Join(outDir, "index.html"))
+	if err != nil {
+		return err
+	}
+
+	if err := tmpl.Execute(f, nil); err != nil {
+		f.Close()
+		return err
+	}
+	return f.Close()
 }
