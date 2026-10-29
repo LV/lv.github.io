@@ -1,20 +1,26 @@
 # lv.github.io
 _Repository hosting my personal blog: [luis.vi](https://luis.vi/)_
 
-It follows the [Plain Vanilla Web guildelines](https://plainvanillaweb.com/pages/sites.html).
+The site is built by a small custom static site generator written in Go, using only the standard library. The repository follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
 
-## Pre-requisites
-- `npm` for managing dependencies and building the project
-- `python3` for running scripts
+## Prerequisites
+- Go (the version in `go.mod`)
+- `make`
 
-## Available scripts
-- `npm run dev` — serve the `public` directory locally with caching disabled, for development
-- `npm run serve` — serve the `public` directory locally the way GitHub Pages does (see below)
-- `npm run check` — type-check the project with `tsc`
-- `npm run feedgen` — generate the RSS/Atom feed
-- `npm run build` — run `check` then `feedgen`
+## Make targets
+- `make` / `make serve` — build the site and preview it at http://localhost:8080
+- `make build` — generate the site into `_site/`
+- `make clean` — delete `_site/`
+- `make fmt` — format the Go code
 
-### Matching GitHub Pages
-`npm run serve` runs `http-server` with flags that mimic how GitHub Pages serves the site:
-- `-c600` caches responses for 10 minutes. GitHub doesn't document this value, but it's the `cache-control: max-age=600` header GitHub Pages sends (checked 2026-10-15). To re-check it, run `curl -sI https://luis.vi/ | grep -i cache-control`
-- `-d false` turns off directory listings. For a directory with no `index.html`, GitHub Pages returns a 404, while `http-server` returns a 403
+## Layout
+- `cmd/sitegen` — the generator
+- `cmd/serve` — the local preview server
+- `internal/site` — paths shared by both programs
+- `web/template/layout` — the layout every page is rendered into
+- `web/template/page` — one template per page; each path mirrors its output path in `_site/`
+- `web/static` — CSS, images, and other files written into `_site/` unchanged
+- `drafts` — unpublished writing
+
+## Deployment
+Pushing to `master` runs `.github/workflows/static.yml`, which builds the site with `make build` and deploys `_site/` to GitHub Pages. It only runs when a commit touches the site's sources. Pull requests into `master` run `.github/workflows/check.yml`, which checks formatting, `go.mod` tidiness, `go vet`, tests, and that the site builds.
