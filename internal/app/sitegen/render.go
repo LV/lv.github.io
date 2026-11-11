@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/LV/lv.github.io/internal/site"
+	"github.com/LV/lv.github.io/internal/pkg/site"
 )
 
 // pageData holds the values a page fills into the layout.
