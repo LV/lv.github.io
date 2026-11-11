@@ -1,5 +1,5 @@
 # lv.github.io
-_Repository hosting my personal blog: [luis.vi](https://luis.vi/)_
+_Repository hosting my personal website: [luis.vi](https://luis.vi/)_
 
 The site is built by a small custom static site generator written in Go, using only the standard library. The repository follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
 
