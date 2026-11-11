@@ -15,9 +15,9 @@ type pageData struct {
 	CurrentNav  string
 }
 
-// parseLayout parses the base layout once, with funcs available to it and to
-// every page later parsed into a copy of it.
-func parseLayout(funcs template.FuncMap) (*template.Template, error) {
+// parseBaseLayout parses the base layout once, with funcs available to it
+// and to every page later parsed into a copy of it.
+func parseBaseLayout(funcs template.FuncMap) (*template.Template, error) {
 	path := filepath.Join(site.DirLayout, "base.html")
 
 	// Funcs must be registered before parsing. Execute runs the template named

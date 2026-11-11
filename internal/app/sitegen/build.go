@@ -25,7 +25,7 @@ func Build(now time.Time) error {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		return err
 	}
-	layout, err := parseLayout(templateFuncs(now))
+	layout, err := parseBaseLayout(templateFuncs(now))
 	if err != nil {
 		return err
 	}
