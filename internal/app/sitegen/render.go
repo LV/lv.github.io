@@ -34,7 +34,7 @@ func renderPage(layout *template.Template, rel string, data pageData) error {
 	pathTmpl := filepath.Join(site.DirPage, rel)
 	pathOut := filepath.Join(site.DirOut, rel)
 
-	// Each page gets its own copy of the layout, so the "content" it defines
+	// Each page gets its own clone of the layout, so the "content" it defines
 	// can't replace another page's.
 	tmpl, err := layout.Clone()
 	if err != nil {
