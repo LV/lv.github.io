@@ -22,19 +22,19 @@ type pageData struct {
 // renderPage), so funcs reach every page too. Never execute it directly: Clone
 // fails once a template has been executed.
 func parseBaseLayout(fsys fs.FS, funcs template.FuncMap) (*template.Template, error) {
-	pathLayout := path.Join(site.DirLayout, "base.html")
+	layoutPath := path.Join(site.DirLayout, "base.html")
 
 	// Funcs must be registered before parsing. Execute runs the template named
 	// in New, so that name must be the layout's file name.
-	return template.New(path.Base(pathLayout)).Funcs(funcs).ParseFS(fsys, pathLayout)
+	return template.New(path.Base(layoutPath)).Funcs(funcs).ParseFS(fsys, layoutPath)
 }
 
 // renderPage parses the page template at site.DirPage/rel within fsys into a
 // clone of layout, executes it with data, and writes the result to outDir/rel,
 // creating any folders the output path needs. layout itself is left unchanged.
 func renderPage(layout *template.Template, fsys fs.FS, outDir, rel string, data pageData) error {
-	pathTmpl := path.Join(site.DirPage, rel)
-	pathOut := filepath.Join(outDir, filepath.FromSlash(rel))
+	tmplPath := path.Join(site.DirPage, rel)
+	outPath := filepath.Join(outDir, filepath.FromSlash(rel))
 
 	// Each page gets its own clone of the layout, so the "content" it defines
 	// can't replace another page's.
@@ -42,15 +42,15 @@ func renderPage(layout *template.Template, fsys fs.FS, outDir, rel string, data 
 	if err != nil {
 		return err
 	}
-	if _, err := tmpl.ParseFS(fsys, pathTmpl); err != nil {
+	if _, err := tmpl.ParseFS(fsys, tmplPath); err != nil {
 		return err
 	}
 
-	if err := os.MkdirAll(filepath.Dir(pathOut), permDir); err != nil {
+	if err := os.MkdirAll(filepath.Dir(outPath), permDir); err != nil {
 		return err
 	}
 
-	f, err := os.Create(pathOut)
+	f, err := os.Create(outPath)
 	if err != nil {
 		return err
 	}
