@@ -2,7 +2,9 @@ package sitegen
 
 import (
 	"html/template"
+	"io/fs"
 	"os"
+	"path"
 	"path/filepath"
 
 	"github.com/LV/lv.github.io/internal/pkg/site"
@@ -15,24 +17,24 @@ type pageData struct {
 	CurrentNav  string
 }
 
-// parseBaseLayout returns the base layout parsed with funcs registered. It is
-// the master that every page is cloned from (see renderPage), so funcs reach
-// every page too. Never execute it directly: Clone fails once a template has
-// been executed.
-func parseBaseLayout(funcs template.FuncMap) (*template.Template, error) {
-	path := filepath.Join(site.DirLayout, "base.html")
+// parseBaseLayout returns the base layout from fsys, parsed with funcs
+// registered. It is the master that every page is cloned from (see
+// renderPage), so funcs reach every page too. Never execute it directly: Clone
+// fails once a template has been executed.
+func parseBaseLayout(fsys fs.FS, funcs template.FuncMap) (*template.Template, error) {
+	pathLayout := path.Join(site.DirLayout, "base.html")
 
 	// Funcs must be registered before parsing. Execute runs the template named
 	// in New, so that name must be the layout's file name.
-	return template.New(filepath.Base(path)).Funcs(funcs).ParseFiles(path)
+	return template.New(path.Base(pathLayout)).Funcs(funcs).ParseFS(fsys, pathLayout)
 }
 
-// renderPage parses the page template at site.DirPage/rel into a clone of
-// layout, executes it with data, and writes the result to site.DirOut/rel,
+// renderPage parses the page template at site.DirPage/rel within fsys into a
+// clone of layout, executes it with data, and writes the result to outDir/rel,
 // creating any folders the output path needs. layout itself is left unchanged.
-func renderPage(layout *template.Template, rel string, data pageData) error {
-	pathTmpl := filepath.Join(site.DirPage, rel)
-	pathOut := filepath.Join(site.DirOut, rel)
+func renderPage(layout *template.Template, fsys fs.FS, outDir, rel string, data pageData) error {
+	pathTmpl := path.Join(site.DirPage, rel)
+	pathOut := filepath.Join(outDir, filepath.FromSlash(rel))
 
 	// Each page gets its own clone of the layout, so the "content" it defines
 	// can't replace another page's.
@@ -40,7 +42,7 @@ func renderPage(layout *template.Template, rel string, data pageData) error {
 	if err != nil {
 		return err
 	}
-	if _, err := tmpl.ParseFiles(pathTmpl); err != nil {
+	if _, err := tmpl.ParseFS(fsys, pathTmpl); err != nil {
 		return err
 	}
 

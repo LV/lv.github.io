@@ -37,3 +37,18 @@ func mustParse(t *testing.T, ts string) time.Time {
 	}
 	return parsed
 }
+
+func TestYearsSince(t *testing.T) {
+	now := mustParse(t, "2026-11-11T00:00:00Z")
+	yearsSince, ok := templateFuncs(now)["yearsSince"].(func(string) (int, error))
+	if !ok {
+		t.Fatal("templateFuncs has no yearsSince of type func(string) (int, error)")
+	}
+
+	if got, err := yearsSince("1998-12-04T15:12:00-04:00"); err != nil || got != 27 {
+		t.Errorf("yearsSince(valid) = %d, %v; want 27, nil", got, err)
+	}
+	if _, err := yearsSince("1998-12-04 15:12"); err == nil {
+		t.Error("yearsSince(malformed) returned no error")
+	}
+}
