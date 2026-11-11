@@ -19,7 +19,7 @@ const (
 type pageData struct {
 	Title       string // page name shown after "LV - " in <title>; empty for just "LV"
 	Description string
-	Current     string // which nav link the header marks as current
+	CurrentNav  string
 }
 
 func main() {
@@ -31,14 +31,14 @@ func main() {
 	}
 	if err := renderPage("index.html", pageData{
 		Description: "Creating to Understand",
-		Current:     "home",
+		CurrentNav:  "home",
 	}); err != nil {
 		log.Fatal(err)
 	}
 	if err := renderPage("writings/index.html", pageData{
 		Title:       "Writings",
 		Description: "Thoughts and Experiments",
-		Current:     "writings",
+		CurrentNav:  "writings",
 	}); err != nil {
 		log.Fatal(err)
 	}

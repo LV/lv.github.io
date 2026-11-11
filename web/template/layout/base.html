@@ -19,12 +19,12 @@
 
       <nav>
         <ul>
-          {{- if eq .Current "home"}}
+          {{- if eq .CurrentNav "home"}}
           <li><a href="#" aria-current="page">Home</a></li>
           {{- else}}
           <li><a href="/">Home</a></li>
           {{- end}}
-          {{- if eq .Current "writings"}}
+          {{- if eq .CurrentNav "writings"}}
           <li><a href="#" aria-current="page">Writings</a></li>
           {{- else}}
           <li><a href="/writings/">Writings</a></li>
