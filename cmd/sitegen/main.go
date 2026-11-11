@@ -30,7 +30,8 @@ func main() {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
-	funcs := templateFuncs(time.Now())
+	// UTC, so local and CI builds agree on the date.
+	funcs := templateFuncs(time.Now().UTC())
 	if err := renderPage("index.html", pageData{
 		Description: "Creating to Understand",
 		CurrentNav:  "home",
