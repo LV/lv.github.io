@@ -11,6 +11,10 @@ on:
       - "Makefile"
       - ".github/workflows/static.yml"
   workflow_dispatch:
+  # Rebuild when a build-time date changes, even with no push. Times are UTC.
+  schedule:
+    - cron: "5 0 1 1 *" # Jan 1, 00:05: footer copyright year
+    - cron: "15 19 4 12 *" # Dec 4, 19:15 (3:15 PM AST): homepage age
 
 permissions:
   contents: read
