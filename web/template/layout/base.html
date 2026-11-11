@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>{{.Title}}</title>
+    <title>LV{{with .Title}} - {{.}}{{end}}</title>
     <meta charset="utf-8">
     <meta name="description" content="{{.Description}}">
     <meta name="author" content="Luis Victoria">
@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.ico" media="(prefers-color-scheme: light)">
     <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="/index.css">
-    <link rel="alternate" type="application/atom+xml" title="Luis Victoria's Blog Feed" href="/feed.atom">
+    <link rel="alternate" type="application/atom+xml" title="Luis Victoria's Feed" href="/feed.atom">
   </head>
 
   <body>
@@ -19,15 +19,15 @@
 
       <nav>
         <ul>
-          {{- if eq .Current "home"}}
+          {{- if eq .CurrentNav "home"}}
           <li><a href="#" aria-current="page">Home</a></li>
           {{- else}}
           <li><a href="/">Home</a></li>
           {{- end}}
-          {{- if eq .Current "blog"}}
-          <li><a href="#" aria-current="page">Blog</a></li>
+          {{- if eq .CurrentNav "writings"}}
+          <li><a href="#" aria-current="page">Writings</a></li>
           {{- else}}
-          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/writings/">Writings</a></li>
           {{- end}}
         </ul>
       </nav>

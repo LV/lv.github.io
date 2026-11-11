@@ -17,9 +17,9 @@ const (
 
 // pageData holds the values a page fills into the layout.
 type pageData struct {
-	Title       string
+	Title       string // page name shown after "LV - " in <title>; empty for just "LV"
 	Description string
-	Current     string // which nav link the header marks as current
+	CurrentNav  string
 }
 
 func main() {
@@ -30,16 +30,15 @@ func main() {
 		log.Fatal(err)
 	}
 	if err := renderPage("index.html", pageData{
-		Title:       "LV",
 		Description: "Creating to Understand",
-		Current:     "home",
+		CurrentNav:  "home",
 	}); err != nil {
 		log.Fatal(err)
 	}
-	if err := renderPage("blog/index.html", pageData{
-		Title:       "LV - Blog",
+	if err := renderPage("writings/index.html", pageData{
+		Title:       "Writings",
 		Description: "Thoughts and Experiments",
-		Current:     "blog",
+		CurrentNav:  "writings",
 	}); err != nil {
 		log.Fatal(err)
 	}
