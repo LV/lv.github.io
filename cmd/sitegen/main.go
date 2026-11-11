@@ -1,136 +1,15 @@
 package main
 
 import (
-	"html/template"
-	"io/fs"
 	"log"
-	"os"
-	"path/filepath"
 	"time"
 
-	"github.com/LV/lv.github.io/internal/site"
+	"github.com/LV/lv.github.io/internal/app/sitegen"
 )
-
-const (
-	permDir  = 0o755 // owner: read, write, open; everyone else: read, open
-	permFile = 0o644 // owner: read, write; everyone else: read
-)
-
-// pageData holds the values a page fills into the layout.
-type pageData struct {
-	Title       string // page name shown after "LV - " in <title>; empty for just "LV"
-	Description string // <meta name="description">: the snippet search engines show under the title
-	CurrentNav  string
-}
 
 func main() {
-	if err := os.RemoveAll(site.DirOut); err != nil {
-		log.Fatal(err)
-	}
-	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
-		log.Fatal(err)
-	}
 	// UTC, so local and CI builds agree on the date.
-	funcs := templateFuncs(time.Now().UTC())
-	if err := renderPage("index.html", pageData{
-		Description: "Creating to Understand",
-		CurrentNav:  "home",
-	}, funcs); err != nil {
+	if err := sitegen.Build(time.Now().UTC()); err != nil {
 		log.Fatal(err)
 	}
-	if err := renderPage("writings/index.html", pageData{
-		Title:       "Writings",
-		Description: "Thoughts and Experiments",
-		CurrentNav:  "writings",
-	}, funcs); err != nil {
-		log.Fatal(err)
-	}
-	if err := writeStatic(); err != nil {
-		log.Fatal(err)
-	}
-}
-
-// templateFuncs returns the functions every template can call. They all read
-// the same now, so every page in one build agrees on the date.
-func templateFuncs(now time.Time) template.FuncMap {
-	return template.FuncMap{
-		"year": func() int { return now.Year() },
-
-		// yearsSince returns how many full years have passed since ts (RFC 3339).
-		"yearsSince": func(ts string) (int, error) {
-			t, err := time.Parse(time.RFC3339, ts)
-			if err != nil {
-				return 0, err
-			}
-			return yearsBetween(t, now), nil
-		},
-	}
-}
-
-// yearsBetween counts the full years between from and to. It uses from's time
-// zone for the calendar, so each year ends at the exact anniversary moment.
-func yearsBetween(from, to time.Time) int {
-	to = to.In(from.Location())
-	years := to.Year() - from.Year()
-	if to.Before(from.AddDate(years, 0, 0)) {
-		years-- // this year's anniversary hasn't happened yet
-	}
-	return years
-}
-
-// renderPage renders the page template at site.DirPage/page inside the base
-// layout, with funcs available to both, and writes the result to
-// site.DirOut/page, creating any folders the output path needs.
-func renderPage(page string, data pageData, funcs template.FuncMap) error {
-	pathLayout := filepath.Join(site.DirLayout, "base.html")
-	pathTmpl := filepath.Join(site.DirPage, page)
-	pathOut := filepath.Join(site.DirOut, page)
-
-	// Funcs must be registered before parsing. Execute runs the template named
-	// in New, so that name must be the layout's file name.
-	tmpl, err := template.New(filepath.Base(pathLayout)).Funcs(funcs).ParseFiles(pathLayout, pathTmpl)
-	if err != nil {
-		return err
-	}
-
-	if err := os.MkdirAll(filepath.Dir(pathOut), permDir); err != nil {
-		return err
-	}
-
-	f, err := os.Create(pathOut)
-	if err != nil {
-		return err
-	}
-
-	if err := tmpl.Execute(f, data); err != nil {
-		f.Close()
-		return err
-	}
-	return f.Close()
-}
-
-// writeStatic writes every file under site.DirStatic into site.DirOut unchanged,
-// keeping the same relative paths.
-func writeStatic() error {
-	return filepath.WalkDir(site.DirStatic, func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-
-		rel, err := filepath.Rel(site.DirStatic, path)
-		if err != nil {
-			return err
-		}
-		target := filepath.Join(site.DirOut, rel)
-
-		if d.IsDir() {
-			return os.MkdirAll(target, permDir)
-		}
-
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		return os.WriteFile(target, data, permFile)
-	})
 }
