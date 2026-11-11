@@ -15,8 +15,10 @@ type pageData struct {
 	CurrentNav  string
 }
 
-// parseBaseLayout parses the base layout once, with funcs available to it
-// and to every page later parsed into a copy of it.
+// parseBaseLayout returns the base layout parsed with funcs registered. It is
+// the master that every page is cloned from (see renderPage), so funcs reach
+// every page too. Never execute it directly: Clone fails once a template has
+// been executed.
 func parseBaseLayout(funcs template.FuncMap) (*template.Template, error) {
 	path := filepath.Join(site.DirLayout, "base.html")
 
