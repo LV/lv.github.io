@@ -36,7 +36,7 @@ func main() {
 	}); err != nil {
 		log.Fatal(err)
 	}
-	if err := renderPage("blog/index.html", pageData{
+	if err := renderPage("writings/index.html", pageData{
 		Title:       "LV - Blog",
 		Description: "Thoughts and Experiments",
 		Current:     "blog",
