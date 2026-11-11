@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/LV/lv.github.io/internal/site"
+	"github.com/LV/lv.github.io/internal/pkg/site"
 )
 
 const (
