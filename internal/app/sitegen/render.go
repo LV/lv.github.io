@@ -27,12 +27,12 @@ func parseBaseLayout(funcs template.FuncMap) (*template.Template, error) {
 	return template.New(filepath.Base(path)).Funcs(funcs).ParseFiles(path)
 }
 
-// renderPage parses the page template at site.DirPage/page into a clone of
-// layout, executes it with data, and writes the result to site.DirOut/page,
+// renderPage parses the page template at site.DirPage/rel into a clone of
+// layout, executes it with data, and writes the result to site.DirOut/rel,
 // creating any folders the output path needs. layout itself is left unchanged.
-func renderPage(layout *template.Template, page string, data pageData) error {
-	pathTmpl := filepath.Join(site.DirPage, page)
-	pathOut := filepath.Join(site.DirOut, page)
+func renderPage(layout *template.Template, rel string, data pageData) error {
+	pathTmpl := filepath.Join(site.DirPage, rel)
+	pathOut := filepath.Join(site.DirOut, rel)
 
 	// Each page gets its own copy of the layout, so the "content" it defines
 	// can't replace another page's.
