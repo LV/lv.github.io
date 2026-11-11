@@ -19,7 +19,7 @@ const (
 // pageData holds the values a page fills into the layout.
 type pageData struct {
 	Title       string // page name shown after "LV - " in <title>; empty for just "LV"
-	Description string
+	Description string // <meta name="description">: the snippet search engines show under the title
 	CurrentNav  string
 }
 
