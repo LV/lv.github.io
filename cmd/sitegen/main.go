@@ -37,9 +37,9 @@ func main() {
 		log.Fatal(err)
 	}
 	if err := renderPage("writings/index.html", pageData{
-		Title:       "LV - Blog",
+		Title:       "LV - Writings",
 		Description: "Thoughts and Experiments",
-		Current:     "blog",
+		Current:     "writings",
 	}); err != nil {
 		log.Fatal(err)
 	}
