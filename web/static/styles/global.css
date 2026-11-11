@@ -60,24 +60,6 @@ code {
     font-size: var(--font-system-code-size);
 }
 
-x-code-viewer {
-    border: 1px solid var(--border-color);
-    margin: 1em 0;
-    min-height: 6em;
-    max-height: 30em;
-}
-
-x-tab-panel {
-    border: 1px solid var(--border-color);
-    margin: 1em 0;
-    min-height: 8em;
-}
-
-x-tab-panel x-code-viewer {
-    border: none;
-    margin: 0;
-}
-
 iframe {
     display: block;
     width: 100%;
@@ -104,42 +86,11 @@ aside p {
     margin-bottom: 0.5em;
 }
 
-aside x-code-viewer {
-    margin: 1em;
-}
-
 hr {
     border: none;
     border-top: 1px dotted var(--border-color);
     margin: 2em auto;
     width: 50%;
-}
-
-section {
-    position: relative;
-}
-
-a.section-anchor {
-    color: inherit;
-    display: none;
-    position: absolute;
-    left: -1.5em;
-    padding-left: 0.6em;
-    font-size: 120%;
-    top: 0;
-    padding-top: 0.2em;
-    width: 1.5em;
-    height: 3em;
-    opacity: 0.4;
-}
-
-section:hover > a.section-anchor {
-    display: inline;
-}
-
-section:hover > a.section-anchor:hover {
-    opacity: 1;
-    color: var(--link-color);
 }
 
 blockquote {
