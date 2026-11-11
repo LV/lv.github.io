@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/LV/lv.github.io/internal/site"
 )
@@ -18,7 +19,7 @@ const (
 // pageData holds the values a page fills into the layout.
 type pageData struct {
 	Title       string // page name shown after "LV - " in <title>; empty for just "LV"
-	Description string
+	Description string // <meta name="description">: the snippet search engines show under the title
 	CurrentNav  string
 }
 
@@ -29,17 +30,19 @@ func main() {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		log.Fatal(err)
 	}
+	// UTC, so local and CI builds agree on the date.
+	funcs := templateFuncs(time.Now().UTC())
 	if err := renderPage("index.html", pageData{
 		Description: "Creating to Understand",
 		CurrentNav:  "home",
-	}); err != nil {
+	}, funcs); err != nil {
 		log.Fatal(err)
 	}
 	if err := renderPage("writings/index.html", pageData{
 		Title:       "Writings",
 		Description: "Thoughts and Experiments",
 		CurrentNav:  "writings",
-	}); err != nil {
+	}, funcs); err != nil {
 		log.Fatal(err)
 	}
 	if err := writeStatic(); err != nil {
@@ -47,16 +50,45 @@ func main() {
 	}
 }
 
+// templateFuncs returns the functions every template can call. They all read
+// the same now, so every page in one build agrees on the date.
+func templateFuncs(now time.Time) template.FuncMap {
+	return template.FuncMap{
+		"year": func() int { return now.Year() },
+
+		// yearsSince returns how many full years have passed since ts (RFC 3339).
+		"yearsSince": func(ts string) (int, error) {
+			t, err := time.Parse(time.RFC3339, ts)
+			if err != nil {
+				return 0, err
+			}
+			return yearsBetween(t, now), nil
+		},
+	}
+}
+
+// yearsBetween counts the full years between from and to. It uses from's time
+// zone for the calendar, so each year ends at the exact anniversary moment.
+func yearsBetween(from, to time.Time) int {
+	to = to.In(from.Location())
+	years := to.Year() - from.Year()
+	if to.Before(from.AddDate(years, 0, 0)) {
+		years-- // this year's anniversary hasn't happened yet
+	}
+	return years
+}
+
 // renderPage renders the page template at site.DirPage/page inside the base
-// layout, and writes the result to site.DirOut/page, creating any folders
-// the output path needs.
-func renderPage(page string, data pageData) error {
+// layout, with funcs available to both, and writes the result to
+// site.DirOut/page, creating any folders the output path needs.
+func renderPage(page string, data pageData, funcs template.FuncMap) error {
 	pathLayout := filepath.Join(site.DirLayout, "base.html")
 	pathTmpl := filepath.Join(site.DirPage, page)
 	pathOut := filepath.Join(site.DirOut, page)
 
-	// The layout must come first: Execute runs the first file's template.
-	tmpl, err := template.ParseFiles(pathLayout, pathTmpl)
+	// Funcs must be registered before parsing. Execute runs the template named
+	// in New, so that name must be the layout's file name.
+	tmpl, err := template.New(filepath.Base(pathLayout)).Funcs(funcs).ParseFiles(pathLayout, pathTmpl)
 	if err != nil {
 		return err
 	}
