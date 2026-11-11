@@ -25,9 +25,12 @@ func Build(now time.Time) error {
 	if err := os.MkdirAll(site.DirOut, permDir); err != nil {
 		return err
 	}
-	funcs := templateFuncs(now)
+	layout, err := parseLayout(templateFuncs(now))
+	if err != nil {
+		return err
+	}
 	for _, p := range pages {
-		if err := renderPage(p.path, p.data, funcs); err != nil {
+		if err := renderPage(layout, p.path, p.data); err != nil {
 			return err
 		}
 	}

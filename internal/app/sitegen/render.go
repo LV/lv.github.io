@@ -15,18 +15,30 @@ type pageData struct {
 	CurrentNav  string
 }
 
-// renderPage renders the page template at site.DirPage/page inside the base
-// layout, with funcs available to both, and writes the result to
-// site.DirOut/page, creating any folders the output path needs.
-func renderPage(page string, data pageData, funcs template.FuncMap) error {
-	pathLayout := filepath.Join(site.DirLayout, "base.html")
-	pathTmpl := filepath.Join(site.DirPage, page)
-	pathOut := filepath.Join(site.DirOut, page)
+// parseLayout parses the base layout once, with funcs available to it and to
+// every page later parsed into a copy of it.
+func parseLayout(funcs template.FuncMap) (*template.Template, error) {
+	path := filepath.Join(site.DirLayout, "base.html")
 
 	// Funcs must be registered before parsing. Execute runs the template named
 	// in New, so that name must be the layout's file name.
-	tmpl, err := template.New(filepath.Base(pathLayout)).Funcs(funcs).ParseFiles(pathLayout, pathTmpl)
+	return template.New(filepath.Base(path)).Funcs(funcs).ParseFiles(path)
+}
+
+// renderPage renders the page template at site.DirPage/page into a copy of
+// layout, and writes the result to site.DirOut/page, creating any folders the
+// output path needs.
+func renderPage(layout *template.Template, page string, data pageData) error {
+	pathTmpl := filepath.Join(site.DirPage, page)
+	pathOut := filepath.Join(site.DirOut, page)
+
+	// Each page gets its own copy of the layout, so the "content" it defines
+	// can't replace another page's.
+	tmpl, err := layout.Clone()
 	if err != nil {
+		return err
+	}
+	if _, err := tmpl.ParseFiles(pathTmpl); err != nil {
 		return err
 	}
 
