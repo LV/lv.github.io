@@ -12,19 +12,19 @@ import (
 )
 
 func TestRenderPage(t *testing.T) {
-	in := fstest.MapFS{
+	fsys := fstest.MapFS{
 		path.Join(site.DirLayout, "base.html"): {Data: []byte(`<title>{{.Title}}</title>{{template "content" .}} {{year}}`)},
 		path.Join(site.DirPage, "a.html"):      {Data: []byte(`{{define "content"}}A{{end}}`)},
 		path.Join(site.DirPage, "sub/b.html"):  {Data: []byte(`{{define "content"}}B{{end}}`)},
 	}
 	now := time.Date(2030, time.June, 1, 0, 0, 0, 0, time.UTC)
 
-	layout, err := parseBaseLayout(in, templateFuncs(now))
+	layout, err := parseBaseLayout(fsys, templateFuncs(now))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	out := t.TempDir()
+	outDir := t.TempDir()
 	tests := []struct {
 		rel  string
 		data pageData
@@ -37,12 +37,12 @@ func TestRenderPage(t *testing.T) {
 	// Render every page from the same layout first, then check them, so a page
 	// leaking into the layout would show up in a later page's output.
 	for _, tt := range tests {
-		if err := renderPage(layout, in, out, tt.rel, tt.data); err != nil {
+		if err := renderPage(layout, fsys, outDir, tt.rel, tt.data); err != nil {
 			t.Fatalf("renderPage(%q): %v", tt.rel, err)
 		}
 	}
 	for _, tt := range tests {
-		if got := readFile(t, filepath.Join(out, tt.rel)); got != tt.want {
+		if got := readFile(t, filepath.Join(outDir, tt.rel)); got != tt.want {
 			t.Errorf("%s = %q, want %q", tt.rel, got, tt.want)
 		}
 	}

@@ -16,32 +16,32 @@ const (
 	permFile = 0o644 // owner: read, write; everyone else: read
 )
 
-// Build reads templates and static files from in, clears the folder out, and
-// regenerates the whole site into it. Every template sees now as the build
+// Build reads templates and static files from fsys, clears the folder outDir,
+// and regenerates the whole site into it. Every template sees now as the build
 // time.
-func Build(in fs.FS, out string, now time.Time) error {
-	if err := os.RemoveAll(out); err != nil {
+func Build(fsys fs.FS, outDir string, now time.Time) error {
+	if err := os.RemoveAll(outDir); err != nil {
 		return err
 	}
-	if err := os.MkdirAll(out, permDir); err != nil {
+	if err := os.MkdirAll(outDir, permDir); err != nil {
 		return err
 	}
-	layout, err := parseBaseLayout(in, templateFuncs(now))
+	layout, err := parseBaseLayout(fsys, templateFuncs(now))
 	if err != nil {
 		return err
 	}
 	for _, p := range pages {
-		if err := renderPage(layout, in, out, p.path, p.data); err != nil {
+		if err := renderPage(layout, fsys, outDir, p.path, p.data); err != nil {
 			return err
 		}
 	}
-	return writeStatic(in, out)
+	return writeStatic(fsys, outDir)
 }
 
-// writeStatic writes every file under site.DirStatic within in into out
+// writeStatic writes every file under site.DirStatic within fsys into outDir
 // unchanged, keeping the same relative paths.
-func writeStatic(in fs.FS, out string) error {
-	static, err := fs.Sub(in, site.DirStatic)
+func writeStatic(fsys fs.FS, outDir string) error {
+	static, err := fs.Sub(fsys, site.DirStatic)
 	if err != nil {
 		return err
 	}
@@ -51,7 +51,7 @@ func writeStatic(in fs.FS, out string) error {
 		if err != nil {
 			return err
 		}
-		target := filepath.Join(out, filepath.FromSlash(rel))
+		target := filepath.Join(outDir, filepath.FromSlash(rel))
 
 		if d.IsDir() {
 			return os.MkdirAll(target, permDir)

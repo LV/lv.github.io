@@ -17,24 +17,24 @@ type pageData struct {
 	CurrentNav  string
 }
 
-// parseBaseLayout returns the base layout from in, parsed with funcs
+// parseBaseLayout returns the base layout from fsys, parsed with funcs
 // registered. It is the master that every page is cloned from (see
 // renderPage), so funcs reach every page too. Never execute it directly: Clone
 // fails once a template has been executed.
-func parseBaseLayout(in fs.FS, funcs template.FuncMap) (*template.Template, error) {
+func parseBaseLayout(fsys fs.FS, funcs template.FuncMap) (*template.Template, error) {
 	pathLayout := path.Join(site.DirLayout, "base.html")
 
 	// Funcs must be registered before parsing. Execute runs the template named
 	// in New, so that name must be the layout's file name.
-	return template.New(path.Base(pathLayout)).Funcs(funcs).ParseFS(in, pathLayout)
+	return template.New(path.Base(pathLayout)).Funcs(funcs).ParseFS(fsys, pathLayout)
 }
 
-// renderPage parses the page template at site.DirPage/rel within in into a
-// clone of layout, executes it with data, and writes the result to out/rel,
+// renderPage parses the page template at site.DirPage/rel within fsys into a
+// clone of layout, executes it with data, and writes the result to outDir/rel,
 // creating any folders the output path needs. layout itself is left unchanged.
-func renderPage(layout *template.Template, in fs.FS, out, rel string, data pageData) error {
+func renderPage(layout *template.Template, fsys fs.FS, outDir, rel string, data pageData) error {
 	pathTmpl := path.Join(site.DirPage, rel)
-	pathOut := filepath.Join(out, filepath.FromSlash(rel))
+	pathOut := filepath.Join(outDir, filepath.FromSlash(rel))
 
 	// Each page gets its own clone of the layout, so the "content" it defines
 	// can't replace another page's.
@@ -42,7 +42,7 @@ func renderPage(layout *template.Template, in fs.FS, out, rel string, data pageD
 	if err != nil {
 		return err
 	}
-	if _, err := tmpl.ParseFS(in, pathTmpl); err != nil {
+	if _, err := tmpl.ParseFS(fsys, pathTmpl); err != nil {
 		return err
 	}
 
